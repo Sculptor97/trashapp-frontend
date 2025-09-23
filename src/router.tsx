@@ -21,7 +21,7 @@ const router = createBrowserRouter(
         <Route index element={<LandingPage />} />
         {/* <Route path='/demo' element={<ServiceHooksDemo />} /> */}
       </Route>
-      
+
       <Route path="/auth" element={<AuthLayout />}>
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />

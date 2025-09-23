@@ -13,7 +13,10 @@ export class ErrorHandler {
   /**
    * Handle service errors with toast notifications
    */
-  static handleServiceError(error: unknown, defaultMessage: string = 'An error occurred'): ServiceError {
+  static handleServiceError(
+    error: unknown,
+    defaultMessage: string = 'An error occurred'
+  ): ServiceError {
     let errorMessage = defaultMessage;
     let errorCode: string | undefined;
     let status: number | undefined;
@@ -21,11 +24,11 @@ export class ErrorHandler {
     // Check for Axios error first
     if (error instanceof AxiosError) {
       status = error.response?.status;
-      
+
       // Try to extract error message from response
       if (error.response?.data) {
         const responseData = error.response.data as Record<string, unknown>;
-        
+
         // Handle different response structures
         if (responseData.message) {
           errorMessage = responseData.message as string;
@@ -37,23 +40,26 @@ export class ErrorHandler {
           errorMessage = responseData.detail as string;
         }
       }
-      
+
       // Fallback to Axios error message if no specific message found
       if (errorMessage === defaultMessage && error.message) {
         errorMessage = error.message;
       }
-      
+
       // Add status-specific messages
       if (status) {
         switch (status) {
           case 400:
-            errorMessage = errorMessage.includes('400') ? errorMessage : `Bad Request: ${errorMessage}`;
+            errorMessage = errorMessage.includes('400')
+              ? errorMessage
+              : `Bad Request: ${errorMessage}`;
             break;
           case 401:
             errorMessage = 'Unauthorized. Please log in again.';
             break;
           case 403:
-            errorMessage = 'Access denied. You don\'t have permission to perform this action.';
+            errorMessage =
+              "Access denied. You don't have permission to perform this action.";
             break;
           case 404:
             errorMessage = 'Resource not found.';
@@ -67,7 +73,8 @@ export class ErrorHandler {
           case 502:
           case 503:
           case 504:
-            errorMessage = 'Service temporarily unavailable. Please try again later.';
+            errorMessage =
+              'Service temporarily unavailable. Please try again later.';
             break;
         }
       }
@@ -77,9 +84,16 @@ export class ErrorHandler {
       errorMessage = error;
     } else if (error && typeof error === 'object') {
       const errorObj = error as Record<string, unknown>;
-      errorMessage = (errorObj.message as string) || (errorObj.error as Record<string, unknown>)?.message as string || defaultMessage;
-      errorCode = (errorObj.code as string) || (errorObj.error as Record<string, unknown>)?.code as string;
-      status = (errorObj.status as number) || (errorObj.response as Record<string, unknown>)?.status as number;
+      errorMessage =
+        (errorObj.message as string) ||
+        ((errorObj.error as Record<string, unknown>)?.message as string) ||
+        defaultMessage;
+      errorCode =
+        (errorObj.code as string) ||
+        ((errorObj.error as Record<string, unknown>)?.code as string);
+      status =
+        (errorObj.status as number) ||
+        ((errorObj.response as Record<string, unknown>)?.status as number);
     }
 
     const serviceError: ServiceError = {
@@ -121,10 +135,12 @@ export class ErrorHandler {
   /**
    * Handle and show error with toast
    */
-  static handleAndShowError(error: unknown, defaultMessage: string = 'An error occurred'): ServiceError {
+  static handleAndShowError(
+    error: unknown,
+    defaultMessage: string = 'An error occurred'
+  ): ServiceError {
     const serviceError = this.handleServiceError(error, defaultMessage);
     this.showErrorToast(serviceError);
     return serviceError;
   }
 }
-

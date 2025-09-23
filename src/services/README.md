@@ -5,7 +5,7 @@ This directory contains the **class-based service layer** for the TrashTrack app
 ## Structure
 
 - `authService.ts` - **AuthService class** with authentication and user management
-- `pickupService.ts` - **PickupService class** with pickup request management  
+- `pickupService.ts` - **PickupService class** with pickup request management
 - `adminService.ts` - **AdminService class** with admin dashboard functionality
 - `index.ts` - Exports all service classes and types
 
@@ -51,7 +51,7 @@ import { authService } from '../services';
 // Login
 const response = await authService.login({ email, password });
 
-// Register  
+// Register
 const response = await authService.register({ name, email, password });
 
 // Get profile
@@ -72,7 +72,7 @@ import { pickupService } from '../services';
 // Request pickup
 const response = await pickupService.requestPickup({
   address: '123 Main St',
-  notes: 'Please collect in the morning'
+  notes: 'Please collect in the morning',
 });
 
 // Get user's pickups
@@ -94,7 +94,7 @@ import { adminService } from '../services';
 const { pickups, pagination } = await adminService.getAllPickups({
   page: 1,
   page_size: 10,
-  search: 'search term'
+  search: 'search term',
 });
 
 // Assign driver
@@ -107,25 +107,32 @@ const stats = await adminService.getDashboardStats();
 const drivers = await adminService.getAllDrivers();
 
 // Update pickup status
-const updatedPickup = await adminService.updatePickupStatus(pickupId, 'completed');
+const updatedPickup = await adminService.updatePickupStatus(
+  pickupId,
+  'completed'
+);
 ```
 
 ## Key Features
 
 ### Automatic Token Management
+
 - Tokens are automatically saved to localStorage on login/register
 - Tokens are automatically included in API requests via axios interceptors
 - Tokens are cleared on logout
 - Refresh token functionality is available
 
 ### Error Handling
+
 All services use the centralized `ApiRequest` function which:
+
 - Handles network errors consistently
 - Provides structured error formatting
 - Logs requests/responses in development mode
 - Throws meaningful error messages
 
 ### Type Safety
+
 - Full TypeScript support with interfaces
 - Generic API response handling
 - Proper error typing
@@ -134,6 +141,7 @@ All services use the centralized `ApiRequest` function which:
 ## Service Classes
 
 ### AuthService
+
 - `login()` - User authentication
 - `register()` - User registration
 - `logout()` - User logout with token cleanup
@@ -145,6 +153,7 @@ All services use the centralized `ApiRequest` function which:
 - `isAuthenticated()` - Check auth status
 
 ### PickupService
+
 - `requestPickup()` - Create pickup request
 - `getMyPickups()` - Get user's pickups
 - `getPickupById()` - Get specific pickup
@@ -152,6 +161,7 @@ All services use the centralized `ApiRequest` function which:
 - `updatePickup()` - Update pickup details
 
 ### AdminService
+
 - `getAllPickups()` - Get all pickups with pagination
 - `assignDriver()` - Assign driver to pickup
 - `getAllDrivers()` - Get all drivers

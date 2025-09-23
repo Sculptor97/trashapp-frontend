@@ -11,15 +11,17 @@ export function ResetPasswordPage() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const token = searchParams.get('token');
-  
+
   const [formData, setFormData] = useState({
     password: '',
     confirmPassword: '',
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [resetStatus, setResetStatus] = useState<'pending' | 'success' | 'error'>('pending');
-  
+  const [resetStatus, setResetStatus] = useState<
+    'pending' | 'success' | 'error'
+  >('pending');
+
   const { confirmPasswordReset } = useAuthMutations();
 
   useEffect(() => {
@@ -34,7 +36,7 @@ export function ResetPasswordPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (formData.password !== formData.confirmPassword) {
       // Handle password mismatch error
       return;
@@ -44,7 +46,7 @@ export function ResetPasswordPage() {
       setResetStatus('error');
       return;
     }
-    
+
     try {
       await confirmPasswordReset.mutateAsync({
         token,
@@ -64,9 +66,12 @@ export function ResetPasswordPage() {
             <CheckCircle className="h-8 w-8 text-green-600" />
           </div>
           <div className="space-y-2">
-            <CardTitle className="text-2xl font-bold text-gray-900">Password Reset Successful!</CardTitle>
+            <CardTitle className="text-2xl font-bold text-gray-900">
+              Password Reset Successful!
+            </CardTitle>
             <CardDescription className="text-gray-600">
-              Your password has been successfully reset. You can now sign in with your new password.
+              Your password has been successfully reset. You can now sign in
+              with your new password.
             </CardDescription>
           </div>
         </div>
@@ -91,9 +96,12 @@ export function ResetPasswordPage() {
             <AlertCircle className="h-8 w-8 text-red-600" />
           </div>
           <div className="space-y-2">
-            <CardTitle className="text-2xl font-bold text-gray-900">Invalid Reset Link</CardTitle>
+            <CardTitle className="text-2xl font-bold text-gray-900">
+              Invalid Reset Link
+            </CardTitle>
             <CardDescription className="text-gray-600">
-              This password reset link is invalid or has expired. Please request a new password reset.
+              This password reset link is invalid or has expired. Please request
+              a new password reset.
             </CardDescription>
           </div>
         </div>
@@ -105,7 +113,7 @@ export function ResetPasswordPage() {
           >
             Request New Reset Link
           </Button>
-          
+
           <Button
             variant="outline"
             onClick={() => navigate('/auth/login')}
@@ -121,15 +129,21 @@ export function ResetPasswordPage() {
   return (
     <div className="space-y-6">
       <div className="text-center space-y-2">
-        <CardTitle className="text-2xl font-bold text-gray-900">Reset Your Password</CardTitle>
+        <CardTitle className="text-2xl font-bold text-gray-900">
+          Reset Your Password
+        </CardTitle>
         <CardDescription className="text-gray-600">
-          Enter your new password below. Make sure it's secure and easy for you to remember.
+          Enter your new password below. Make sure it's secure and easy for you
+          to remember.
         </CardDescription>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-2">
-          <Label htmlFor="password" className="text-sm font-medium text-gray-700">
+          <Label
+            htmlFor="password"
+            className="text-sm font-medium text-gray-700"
+          >
             New Password
           </Label>
           <div className="relative">
@@ -139,7 +153,7 @@ export function ResetPasswordPage() {
               type={showPassword ? 'text' : 'password'}
               placeholder="Enter your new password"
               value={formData.password}
-              onChange={(e) => handleInputChange('password', e.target.value)}
+              onChange={e => handleInputChange('password', e.target.value)}
               className="pl-10 pr-10 border-gray-300 focus:border-brand-primary focus:ring-brand-primary"
               required
               minLength={8}
@@ -149,13 +163,20 @@ export function ResetPasswordPage() {
               onClick={() => setShowPassword(!showPassword)}
               className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
             >
-              {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+              {showPassword ? (
+                <EyeOff className="h-4 w-4" />
+              ) : (
+                <Eye className="h-4 w-4" />
+              )}
             </button>
           </div>
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="confirmPassword" className="text-sm font-medium text-gray-700">
+          <Label
+            htmlFor="confirmPassword"
+            className="text-sm font-medium text-gray-700"
+          >
             Confirm New Password
           </Label>
           <div className="relative">
@@ -165,7 +186,9 @@ export function ResetPasswordPage() {
               type={showConfirmPassword ? 'text' : 'password'}
               placeholder="Confirm your new password"
               value={formData.confirmPassword}
-              onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
+              onChange={e =>
+                handleInputChange('confirmPassword', e.target.value)
+              }
               className="pl-10 pr-10 border-gray-300 focus:border-brand-primary focus:ring-brand-primary"
               required
               minLength={8}
@@ -175,16 +198,20 @@ export function ResetPasswordPage() {
               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
               className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
             >
-              {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+              {showConfirmPassword ? (
+                <EyeOff className="h-4 w-4" />
+              ) : (
+                <Eye className="h-4 w-4" />
+              )}
             </button>
           </div>
         </div>
 
-        {formData.password && formData.confirmPassword && formData.password !== formData.confirmPassword && (
-          <div className="text-sm text-red-600">
-            Passwords do not match
-          </div>
-        )}
+        {formData.password &&
+          formData.confirmPassword &&
+          formData.password !== formData.confirmPassword && (
+            <div className="text-sm text-red-600">Passwords do not match</div>
+          )}
 
         <div className="bg-brand-light/30 rounded-lg p-4">
           <div className="text-sm text-gray-700">
@@ -200,9 +227,14 @@ export function ResetPasswordPage() {
         <Button
           type="submit"
           className="w-full bg-brand-primary hover:bg-brand-secondary text-white font-semibold py-2.5"
-          disabled={confirmPasswordReset.isPending || formData.password !== formData.confirmPassword}
+          disabled={
+            confirmPasswordReset.isPending ||
+            formData.password !== formData.confirmPassword
+          }
         >
-          {confirmPasswordReset.isPending ? 'Resetting Password...' : 'Reset Password'}
+          {confirmPasswordReset.isPending
+            ? 'Resetting Password...'
+            : 'Reset Password'}
         </Button>
       </form>
 

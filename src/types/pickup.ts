@@ -1,7 +1,12 @@
 // Pickup Types
 
 export type WasteType = 'general' | 'recyclable' | 'hazardous';
-export type PickupStatus = 'pending' | 'assigned' | 'in_progress' | 'completed' | 'cancelled';
+export type PickupStatus =
+  | 'pending'
+  | 'assigned'
+  | 'in_progress'
+  | 'completed'
+  | 'cancelled';
 
 export interface PickupRequest {
   address: string;

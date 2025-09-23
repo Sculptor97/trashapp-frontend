@@ -15,9 +15,9 @@ This directory contains custom form components that integrate React Hook Form wi
 ## Usage
 
 ```tsx
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import {
   Form,
   FormControl,
@@ -25,18 +25,18 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/forms'
+} from '@/components/forms';
 
 const schema = z.object({
   email: z.string().email(),
   password: z.string().min(6),
-})
+});
 
 function MyForm() {
   const form = useForm({
     resolver: zodResolver(schema),
     defaultValues: { email: '', password: '' },
-  })
+  });
 
   return (
     <Form {...form}>
@@ -56,7 +56,7 @@ function MyForm() {
         />
       </form>
     </Form>
-  )
+  );
 }
 ```
 

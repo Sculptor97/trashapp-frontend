@@ -1,7 +1,10 @@
 import type { PaginationParams } from './types/api';
 
 // Base query key factory
-const createQueryKey = (domain: string, ...keys: (string | number | object | undefined)[]) => {
+const createQueryKey = (
+  domain: string,
+  ...keys: (string | number | object | undefined)[]
+) => {
   return [domain, ...keys.filter(key => key !== undefined)] as const;
 };
 
@@ -24,10 +27,12 @@ export const pickupKeys = {
 // Admin query keys
 export const adminKeys = {
   all: ['admin'] as const,
-  pickups: (params?: PaginationParams) => createQueryKey('admin', 'pickups', params),
+  pickups: (params?: PaginationParams) =>
+    createQueryKey('admin', 'pickups', params),
   drivers: () => createQueryKey('admin', 'drivers'),
   stats: () => createQueryKey('admin', 'stats'),
-  users: (params?: PaginationParams) => createQueryKey('admin', 'users', params),
+  users: (params?: PaginationParams) =>
+    createQueryKey('admin', 'users', params),
   pickupDetail: (id: string) => createQueryKey('admin', 'pickup', id),
   dashboard: () => createQueryKey('admin', 'dashboard'),
 };

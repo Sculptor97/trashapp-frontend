@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { useGoogleAuth } from '../../hooks/useGoogleAuth';
+import { Button } from '@/components/ui/button';
 
 interface GoogleSignInButtonProps {
   /**
@@ -34,42 +36,49 @@ export const GoogleSignInButton = ({
   disabled = false,
   size = 'md',
 }: GoogleSignInButtonProps) => {
-  const { loginWithGoogle, linkGoogleAccount, isLinking: isLinkingAccount } = useGoogleAuth();
+  const [isLoading, setIsLoading] = useState(false);
+  const {
+    loginWithGoogle,
+    linkGoogleAccount,
+    isLinking: isLinkingAccount,
+  } = useGoogleAuth();
 
-  const handleClick = () => {
-    if (isLinking) {
-      linkGoogleAccount();
-    } else {
-      loginWithGoogle();
+  const handleClick = async () => {
+    setIsLoading(true);
+    try {
+      if (isLinking) {
+        await linkGoogleAccount();
+      } else {
+        await loginWithGoogle();
+      }
+    } catch (error) {
+      // Error is handled by the hook
+      console.error('Google auth error:', error);
+    } finally {
+      // Note: This won't execute if redirect happens successfully
+      // The redirect will navigate away from the page
+      setIsLoading(false);
     }
   };
 
-  const buttonText = text || (isLinking ? 'Link Google Account' : 'Sign in with Google');
-  const isLoading = isLinkingAccount;
+  const buttonText =
+    text || (isLinking ? 'Link Google Account' : 'Sign in with Google');
+  const isButtonLoading = isLoading || isLinkingAccount;
 
-  // Size classes
-  const sizeClasses = {
-    sm: 'px-3 py-1.5 text-sm',
-    md: 'px-4 py-2 text-base',
-    lg: 'px-6 py-3 text-lg',
-  };
+  // Map to shadcn button sizes
+  const buttonSize: 'sm' | 'default' | 'lg' =
+    size === 'sm' ? 'sm' : size === 'lg' ? 'lg' : 'default';
 
   return (
-    <button
+    <Button
+      type="button"
       onClick={handleClick}
-      disabled={disabled || isLoading}
-      className={`
-        w-full flex items-center justify-center gap-3
-        border border-gray-300 rounded-lg
-        bg-white hover:bg-gray-50
-        focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
-        disabled:opacity-50 disabled:cursor-not-allowed
-        transition-colors duration-200
-        ${sizeClasses[size]}
-        ${className}
-      `}
+      disabled={disabled || isButtonLoading}
+      variant="outline"
+      size={buttonSize}
+      className={`w-full justify-center gap-3 bg-white hover:bg-gray-50 ${className}`}
     >
-      {isLoading ? (
+      {isButtonLoading ? (
         <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-600"></div>
       ) : (
         <svg
@@ -96,6 +105,6 @@ export const GoogleSignInButton = ({
         </svg>
       )}
       <span className="font-medium text-gray-700">{buttonText}</span>
-    </button>
+    </Button>
   );
 };

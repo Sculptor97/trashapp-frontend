@@ -1,9 +1,5 @@
 import ApiRequest from '../API/axiosClient';
-import type {
-  PickupRequest,
-  Pickup,
-  PickupResponse,
-} from '../types';
+import type { PickupRequest, Pickup, PickupResponse } from '../types';
 
 // Pickup Service Class
 export class PickupService {
@@ -21,7 +17,9 @@ export class PickupService {
       return response.data;
     } catch (error) {
       console.error('Failed to request pickup:', error);
-      throw new Error(error instanceof Error ? error.message : 'Failed to request pickup');
+      throw new Error(
+        error instanceof Error ? error.message : 'Failed to request pickup'
+      );
     }
   }
 
@@ -38,7 +36,9 @@ export class PickupService {
       return response.data;
     } catch (error) {
       console.error('Failed to fetch user pickups:', error);
-      throw new Error(error instanceof Error ? error.message : 'Failed to fetch user pickups');
+      throw new Error(
+        error instanceof Error ? error.message : 'Failed to fetch user pickups'
+      );
     }
   }
 
@@ -55,7 +55,9 @@ export class PickupService {
       return response.data;
     } catch (error) {
       console.error('Failed to fetch pickup by ID:', error);
-      throw new Error(error instanceof Error ? error.message : 'Failed to fetch pickup by ID');
+      throw new Error(
+        error instanceof Error ? error.message : 'Failed to fetch pickup by ID'
+      );
     }
   }
 
@@ -70,14 +72,19 @@ export class PickupService {
       });
     } catch (error) {
       console.error('Failed to cancel pickup:', error);
-      throw new Error(error instanceof Error ? error.message : 'Failed to cancel pickup');
+      throw new Error(
+        error instanceof Error ? error.message : 'Failed to cancel pickup'
+      );
     }
   }
 
   /**
    * Update pickup request
    */
-  async updatePickup(pickupId: string, data: Partial<PickupRequest>): Promise<Pickup> {
+  async updatePickup(
+    pickupId: string,
+    data: Partial<PickupRequest>
+  ): Promise<Pickup> {
     try {
       const response = await ApiRequest<Pickup>({
         method: 'PATCH',
@@ -88,7 +95,9 @@ export class PickupService {
       return response.data;
     } catch (error) {
       console.error('Failed to update pickup:', error);
-      throw new Error(error instanceof Error ? error.message : 'Failed to update pickup');
+      throw new Error(
+        error instanceof Error ? error.message : 'Failed to update pickup'
+      );
     }
   }
 }

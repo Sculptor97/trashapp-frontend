@@ -5,7 +5,7 @@ import type { PaginationParams } from '../types';
 
 // Admin Query Hooks
 export const useAdminQueries = () => {
-  const getAllPickups = (params?: PaginationParams) => {
+  const useGetAllPickups = (params?: PaginationParams) => {
     return useQuery({
       queryKey: adminKeys.pickups(params),
       queryFn: () => adminService.getAllPickups(params),
@@ -26,7 +26,7 @@ export const useAdminQueries = () => {
     refetchInterval: 5 * 60 * 1000, // Refetch every 5 minutes
   });
 
-  const getPickupDetails = (pickupId: string) => {
+  const useGetPickupDetails = (pickupId: string) => {
     return useQuery({
       queryKey: adminKeys.pickupDetail(pickupId),
       queryFn: () => adminService.getPickupDetails(pickupId),
@@ -35,7 +35,7 @@ export const useAdminQueries = () => {
     });
   };
 
-  const getAllUsers = (params?: PaginationParams) => {
+  const useGetAllUsers = (params?: PaginationParams) => {
     return useQuery({
       queryKey: adminKeys.users(params),
       queryFn: () => adminService.getAllUsers(params),
@@ -44,10 +44,10 @@ export const useAdminQueries = () => {
   };
 
   return {
-    getAllPickups,
+    useGetAllPickups,
     getAllDrivers,
     getDashboardStats,
-    getPickupDetails,
-    getAllUsers,
+    useGetPickupDetails,
+    useGetAllUsers,
   };
 };

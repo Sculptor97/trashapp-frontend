@@ -8,14 +8,19 @@ export const useAdminMutations = () => {
   const queryClient = useQueryClient();
 
   const assignDriver = useMutation({
-    mutationFn: ({ pickupId, driverId }: { pickupId: string; driverId: string }) =>
-      adminService.assignDriver(pickupId, driverId),
+    mutationFn: ({
+      pickupId,
+      driverId,
+    }: {
+      pickupId: string;
+      driverId: string;
+    }) => adminService.assignDriver(pickupId, driverId),
     onSuccess: () => {
       // Invalidate all pickup-related queries
       queryClient.invalidateQueries({ queryKey: adminKeys.all });
       ErrorHandler.showSuccessToast('Driver assigned successfully!');
     },
-    onError: (error) => {
+    onError: error => {
       ErrorHandler.handleAndShowError(error, 'Failed to assign driver');
     },
   });
@@ -26,7 +31,12 @@ export const useAdminMutations = () => {
       status,
     }: {
       pickupId: string;
-      status: 'pending' | 'assigned' | 'in_progress' | 'completed' | 'cancelled';
+      status:
+        | 'pending'
+        | 'assigned'
+        | 'in_progress'
+        | 'completed'
+        | 'cancelled';
     }) => adminService.updatePickupStatus(pickupId, status),
     onSuccess: () => {
       // Invalidate all pickup-related queries

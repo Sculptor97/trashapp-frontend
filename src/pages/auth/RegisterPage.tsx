@@ -20,18 +20,20 @@ import {
   FormMessage,
 } from '@/components/forms';
 
-const registerSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Please enter a valid email address'),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
-  confirmPassword: z.string(),
-  acceptTerms: z.boolean().refine((val) => val === true, {
-    message: 'You must accept the terms and conditions',
-  }),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "Passwords don't match",
-  path: ["confirmPassword"],
-});
+const registerSchema = z
+  .object({
+    name: z.string().min(2, 'Name must be at least 2 characters'),
+    email: z.string().email('Please enter a valid email address'),
+    password: z.string().min(6, 'Password must be at least 6 characters'),
+    confirmPassword: z.string(),
+    acceptTerms: z.boolean().refine(val => val === true, {
+      message: 'You must accept the terms and conditions',
+    }),
+  })
+  .refine(data => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ['confirmPassword'],
+  });
 
 type RegisterFormData = z.infer<typeof registerSchema>;
 
@@ -39,7 +41,7 @@ export function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
-  
+
   const { register } = useAuthMutations();
 
   const form = useForm<RegisterFormData>({
@@ -69,7 +71,9 @@ export function RegisterPage() {
   return (
     <div className="space-y-6">
       <div className="text-center space-y-2">
-        <CardTitle className="text-2xl font-bold text-gray-900">Create Account</CardTitle>
+        <CardTitle className="text-2xl font-bold text-gray-900">
+          Create Account
+        </CardTitle>
         <CardDescription className="text-gray-600">
           Join EcoCollect and start your waste management journey
         </CardDescription>
@@ -147,7 +151,11 @@ export function RegisterPage() {
                       onClick={() => setShowPassword(!showPassword)}
                       className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
                     >
-                      {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      {showPassword ? (
+                        <EyeOff className="h-4 w-4" />
+                      ) : (
+                        <Eye className="h-4 w-4" />
+                      )}
                     </button>
                   </div>
                 </FormControl>
@@ -175,10 +183,16 @@ export function RegisterPage() {
                     />
                     <button
                       type="button"
-                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      onClick={() =>
+                        setShowConfirmPassword(!showConfirmPassword)
+                      }
                       className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
                     >
-                      {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      {showConfirmPassword ? (
+                        <EyeOff className="h-4 w-4" />
+                      ) : (
+                        <Eye className="h-4 w-4" />
+                      )}
                     </button>
                   </div>
                 </FormControl>
@@ -201,11 +215,17 @@ export function RegisterPage() {
                 </FormControl>
                 <FormLabel className="text-sm text-gray-600 cursor-pointer">
                   I agree to the{' '}
-                  <Link to="/terms" className="text-brand-primary hover:text-brand-secondary">
+                  <Link
+                    to="/terms"
+                    className="text-brand-primary hover:text-brand-secondary"
+                  >
                     Terms of Service
                   </Link>{' '}
                   and{' '}
-                  <Link to="/privacy" className="text-brand-primary hover:text-brand-secondary">
+                  <Link
+                    to="/privacy"
+                    className="text-brand-primary hover:text-brand-secondary"
+                  >
                     Privacy Policy
                   </Link>
                 </FormLabel>
@@ -233,7 +253,7 @@ export function RegisterPage() {
         </div>
       </div>
 
-      <GoogleSignInButton 
+      <GoogleSignInButton
         text="Sign up with Google"
         size="lg"
         className="w-full"

@@ -1,5 +1,11 @@
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { CheckCircle, ArrowRight, Mail } from 'lucide-react';
@@ -15,7 +21,10 @@ export function NewsletterSection() {
               <div className="space-y-4">
                 <div className="flex items-center space-x-2">
                   <Mail className="h-8 w-8 text-brand-light" />
-                  <Badge variant="secondary" className="bg-brand-light text-brand-primary">
+                  <Badge
+                    variant="secondary"
+                    className="bg-brand-light text-brand-primary"
+                  >
                     Newsletter
                   </Badge>
                 </div>
@@ -26,9 +35,11 @@ export function NewsletterSection() {
                   {APP_CONFIG.newsletter.description}
                 </p>
               </div>
-              
+
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-brand-light">What you'll get:</h3>
+                <h3 className="text-lg font-semibold text-brand-light">
+                  What you'll get:
+                </h3>
                 <ul className="space-y-2">
                   {APP_CONFIG.newsletter.benefits.map((benefit, index) => (
                     <li key={index} className="flex items-center space-x-2">
@@ -39,23 +50,26 @@ export function NewsletterSection() {
                 </ul>
               </div>
             </div>
-            
+
             <div className="space-y-6">
               <Card className="bg-white/10 backdrop-blur-sm border-white/20">
                 <CardHeader>
-                  <CardTitle className="text-white text-center">Join Our Community</CardTitle>
+                  <CardTitle className="text-white text-center">
+                    Join Our Community
+                  </CardTitle>
                   <CardDescription className="text-brand-light text-center">
-                    Be the first to know about new features and environmental initiatives
+                    Be the first to know about new features and environmental
+                    initiatives
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-3">
-                    <Input 
-                      type="email" 
+                    <Input
+                      type="email"
                       placeholder={APP_CONFIG.newsletter.placeholder}
                       className="bg-white/20 border-white/30 text-white placeholder:text-white/70 focus:bg-white/30"
                     />
-                    <Button 
+                    <Button
                       className="w-full bg-white text-brand-primary hover:bg-gray-100 font-semibold"
                       size="lg"
                     >

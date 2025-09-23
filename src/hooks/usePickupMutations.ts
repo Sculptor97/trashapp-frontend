@@ -15,7 +15,7 @@ export const usePickupMutations = () => {
       queryClient.invalidateQueries({ queryKey: pickupKeys.my() });
       ErrorHandler.showSuccessToast('Pickup requested successfully!');
     },
-    onError: (error) => {
+    onError: error => {
       ErrorHandler.handleAndShowError(error, 'Failed to request pickup');
     },
   });

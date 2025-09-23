@@ -15,7 +15,9 @@ export class AdminService {
   /**
    * Get all pickup requests (admin only)
    */
-  async getAllPickups(params?: PaginationParams): Promise<PaginatedPickupsResponse> {
+  async getAllPickups(
+    params?: PaginationParams
+  ): Promise<PaginatedPickupsResponse> {
     try {
       const response = await ApiRequest<PaginatedPickupsResponse>({
         method: 'GET',
@@ -28,14 +30,19 @@ export class AdminService {
       return response.data;
     } catch (error) {
       console.error('Failed to fetch all pickups:', error);
-      throw new Error(error instanceof Error ? error.message : 'Failed to fetch all pickups');
+      throw new Error(
+        error instanceof Error ? error.message : 'Failed to fetch all pickups'
+      );
     }
   }
 
   /**
    * Assign driver to a pickup request
    */
-  async assignDriver(pickupId: string, driverId: string): Promise<AssignDriverResponse> {
+  async assignDriver(
+    pickupId: string,
+    driverId: string
+  ): Promise<AssignDriverResponse> {
     try {
       const response = await ApiRequest<AssignDriverResponse>({
         method: 'POST',
@@ -49,7 +56,9 @@ export class AdminService {
       return response.data;
     } catch (error) {
       console.error('Failed to assign driver:', error);
-      throw new Error(error instanceof Error ? error.message : 'Failed to assign driver');
+      throw new Error(
+        error instanceof Error ? error.message : 'Failed to assign driver'
+      );
     }
   }
 
@@ -66,7 +75,9 @@ export class AdminService {
       return response.data;
     } catch (error) {
       console.error('Failed to fetch all drivers:', error);
-      throw new Error(error instanceof Error ? error.message : 'Failed to fetch all drivers');
+      throw new Error(
+        error instanceof Error ? error.message : 'Failed to fetch all drivers'
+      );
     }
   }
 
@@ -83,7 +94,11 @@ export class AdminService {
       return response.data;
     } catch (error) {
       console.error('Failed to fetch dashboard stats:', error);
-      throw new Error(error instanceof Error ? error.message : 'Failed to fetch dashboard stats');
+      throw new Error(
+        error instanceof Error
+          ? error.message
+          : 'Failed to fetch dashboard stats'
+      );
     }
   }
 
@@ -104,7 +119,11 @@ export class AdminService {
       return response.data;
     } catch (error) {
       console.error('Failed to update pickup status:', error);
-      throw new Error(error instanceof Error ? error.message : 'Failed to update pickup status');
+      throw new Error(
+        error instanceof Error
+          ? error.message
+          : 'Failed to update pickup status'
+      );
     }
   }
 
@@ -121,14 +140,20 @@ export class AdminService {
       return response.data;
     } catch (error) {
       console.error('Failed to fetch pickup details:', error);
-      throw new Error(error instanceof Error ? error.message : 'Failed to fetch pickup details');
+      throw new Error(
+        error instanceof Error
+          ? error.message
+          : 'Failed to fetch pickup details'
+      );
     }
   }
 
   /**
    * Get all users (admin only)
    */
-  async getAllUsers(params?: PaginationParams): Promise<PaginatedUsersResponse> {
+  async getAllUsers(
+    params?: PaginationParams
+  ): Promise<PaginatedUsersResponse> {
     try {
       const response = await ApiRequest<PaginatedUsersResponse>({
         method: 'GET',
@@ -141,7 +166,9 @@ export class AdminService {
       return response.data;
     } catch (error) {
       console.error('Failed to fetch all users:', error);
-      throw new Error(error instanceof Error ? error.message : 'Failed to fetch all users');
+      throw new Error(
+        error instanceof Error ? error.message : 'Failed to fetch all users'
+      );
     }
   }
 }

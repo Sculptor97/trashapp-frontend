@@ -10,12 +10,12 @@ import { Mail, ArrowLeft, CheckCircle } from 'lucide-react';
 export function ForgotPasswordPage() {
   const [email, setEmail] = useState('');
   const [emailSent, setEmailSent] = useState(false);
-  
+
   const { resetPassword } = useAuthMutations();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     try {
       await resetPassword.mutateAsync(email);
       setEmailSent(true);
@@ -32,9 +32,13 @@ export function ForgotPasswordPage() {
             <CheckCircle className="h-8 w-8 text-green-600" />
           </div>
           <div className="space-y-2">
-            <CardTitle className="text-2xl font-bold text-gray-900">Check Your Email</CardTitle>
+            <CardTitle className="text-2xl font-bold text-gray-900">
+              Check Your Email
+            </CardTitle>
             <CardDescription className="text-gray-600">
-              We've sent a password reset link to <strong>{email}</strong>. Please check your inbox and follow the instructions to reset your password.
+              We've sent a password reset link to <strong>{email}</strong>.
+              Please check your inbox and follow the instructions to reset your
+              password.
             </CardDescription>
           </div>
         </div>
@@ -58,7 +62,7 @@ export function ForgotPasswordPage() {
           >
             Try Different Email
           </Button>
-          
+
           <Button
             onClick={() => setEmailSent(false)}
             className="w-full bg-brand-primary hover:bg-brand-secondary text-white font-semibold py-2.5"
@@ -83,9 +87,12 @@ export function ForgotPasswordPage() {
   return (
     <div className="space-y-6">
       <div className="text-center space-y-2">
-        <CardTitle className="text-2xl font-bold text-gray-900">Forgot Password?</CardTitle>
+        <CardTitle className="text-2xl font-bold text-gray-900">
+          Forgot Password?
+        </CardTitle>
         <CardDescription className="text-gray-600">
-          No worries! Enter your email address and we'll send you a link to reset your password.
+          No worries! Enter your email address and we'll send you a link to
+          reset your password.
         </CardDescription>
       </div>
 
@@ -101,7 +108,7 @@ export function ForgotPasswordPage() {
               type="email"
               placeholder="Enter your email address"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={e => setEmail(e.target.value)}
               className="pl-10 border-gray-300 focus:border-brand-primary focus:ring-brand-primary"
               required
             />
@@ -113,7 +120,9 @@ export function ForgotPasswordPage() {
           className="w-full bg-brand-primary hover:bg-brand-secondary text-white font-semibold py-2.5"
           disabled={resetPassword.isPending}
         >
-          {resetPassword.isPending ? 'Sending Reset Link...' : 'Send Reset Link'}
+          {resetPassword.isPending
+            ? 'Sending Reset Link...'
+            : 'Send Reset Link'}
         </Button>
       </form>
 

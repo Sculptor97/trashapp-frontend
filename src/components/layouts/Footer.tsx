@@ -1,4 +1,12 @@
-import { Recycle, Facebook, Twitter, Instagram, Mail, Phone, MapPin } from 'lucide-react';
+import {
+  Recycle,
+  Facebook,
+  Twitter,
+  Instagram,
+  Mail,
+  Phone,
+  MapPin,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { APP_CONFIG } from '@/config/app';
 
@@ -19,13 +27,25 @@ export function Footer() {
               {APP_CONFIG.description}
             </p>
             <div className="flex space-x-4">
-              <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-brand-primary hover:bg-brand-primary/10">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-muted-foreground hover:text-brand-primary hover:bg-brand-primary/10"
+              >
                 <Facebook className="h-4 w-4" />
               </Button>
-              <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-brand-primary hover:bg-brand-primary/10">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-muted-foreground hover:text-brand-primary hover:bg-brand-primary/10"
+              >
                 <Twitter className="h-4 w-4" />
               </Button>
-              <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-brand-primary hover:bg-brand-primary/10">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-muted-foreground hover:text-brand-primary hover:bg-brand-primary/10"
+              >
                 <Instagram className="h-4 w-4" />
               </Button>
             </div>
@@ -33,11 +53,16 @@ export function Footer() {
 
           {/* Quick Links */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-foreground">Quick Links</h3>
+            <h3 className="text-lg font-semibold text-foreground">
+              Quick Links
+            </h3>
             <ul className="space-y-2">
-              {APP_CONFIG.navigation.footer.quickLinks.map((link) => (
+              {APP_CONFIG.navigation.footer.quickLinks.map(link => (
                 <li key={link.href}>
-                  <a href={link.href} className="text-muted-foreground hover:text-brand-primary text-sm transition-colors">
+                  <a
+                    href={link.href}
+                    className="text-muted-foreground hover:text-brand-primary text-sm transition-colors"
+                  >
                     {link.label}
                   </a>
                 </li>
@@ -49,9 +74,12 @@ export function Footer() {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold text-foreground">Services</h3>
             <ul className="space-y-2">
-              {APP_CONFIG.navigation.footer.services.map((service) => (
+              {APP_CONFIG.navigation.footer.services.map(service => (
                 <li key={service.href}>
-                  <a href={service.href} className="text-muted-foreground hover:text-brand-primary text-sm transition-colors">
+                  <a
+                    href={service.href}
+                    className="text-muted-foreground hover:text-brand-primary text-sm transition-colors"
+                  >
                     {service.label}
                   </a>
                 </li>
@@ -61,15 +89,21 @@ export function Footer() {
 
           {/* Contact Info */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-foreground">Contact Us</h3>
+            <h3 className="text-lg font-semibold text-foreground">
+              Contact Us
+            </h3>
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
                 <Phone className="h-4 w-4 text-muted-foreground" />
-                <span className="text-muted-foreground text-sm">{APP_CONFIG.contact.phone}</span>
+                <span className="text-muted-foreground text-sm">
+                  {APP_CONFIG.contact.phone}
+                </span>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="h-4 w-4 text-muted-foreground" />
-                <span className="text-muted-foreground text-sm">{APP_CONFIG.contact.email}</span>
+                <span className="text-muted-foreground text-sm">
+                  {APP_CONFIG.contact.email}
+                </span>
               </div>
               <div className="flex items-start space-x-3">
                 <MapPin className="h-4 w-4 text-muted-foreground mt-0.5" />
@@ -77,7 +111,9 @@ export function Footer() {
                   {APP_CONFIG.contact.addresses.map((address, index) => (
                     <span key={index}>
                       {address}
-                      {index < APP_CONFIG.contact.addresses.length - 1 && <br />}
+                      {index < APP_CONFIG.contact.addresses.length - 1 && (
+                        <br />
+                      )}
                     </span>
                   ))}
                 </span>
@@ -93,8 +129,12 @@ export function Footer() {
               {APP_CONFIG.copyright}
             </p>
             <div className="flex space-x-6">
-              {APP_CONFIG.navigation.footer.legal.map((link) => (
-                <a key={link.href} href={link.href} className="text-muted-foreground hover:text-brand-primary text-sm transition-colors">
+              {APP_CONFIG.navigation.footer.legal.map(link => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="text-muted-foreground hover:text-brand-primary text-sm transition-colors"
+                >
                   {link.label}
                 </a>
               ))}

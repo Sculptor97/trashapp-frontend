@@ -12,14 +12,17 @@ export function AuthLayout() {
             <div className="text-center space-y-8">
               <div className="flex items-center justify-center space-x-3">
                 <Recycle className="h-12 w-12 text-brand-light" />
-                <span className="text-3xl font-bold text-brand-light">EcoCollect</span>
+                <span className="text-3xl font-bold text-brand-light">
+                  EcoCollect
+                </span>
               </div>
               <div className="space-y-4">
                 <h1 className="text-4xl font-bold leading-tight">
                   Welcome to EcoCollect
                 </h1>
                 <p className="text-xl text-brand-light leading-relaxed max-w-md">
-                  Join thousands of Cameroonians making a difference in waste management and environmental sustainability.
+                  Join thousands of Cameroonians making a difference in waste
+                  management and environmental sustainability.
                 </p>
               </div>
               <div className="grid grid-cols-2 gap-6 text-center">
@@ -29,7 +32,9 @@ export function AuthLayout() {
                 </div>
                 <div className="space-y-2">
                   <div className="text-3xl font-bold">50K+</div>
-                  <div className="text-brand-light text-sm">Pickups Completed</div>
+                  <div className="text-brand-light text-sm">
+                    Pickups Completed
+                  </div>
                 </div>
               </div>
             </div>
@@ -42,7 +47,9 @@ export function AuthLayout() {
             {/* Mobile Logo */}
             <div className="lg:hidden flex items-center justify-center space-x-2 mb-8">
               <Recycle className="h-8 w-8 text-brand-primary" />
-              <span className="text-2xl font-bold text-brand-primary">EcoCollect</span>
+              <span className="text-2xl font-bold text-brand-primary">
+                EcoCollect
+              </span>
             </div>
 
             {/* Auth Content */}
@@ -54,7 +61,10 @@ export function AuthLayout() {
             <div className="mt-8 text-center">
               <p className="text-sm text-gray-600">
                 Need help?{' '}
-                <Link to="/contact" className="font-medium text-brand-primary hover:text-brand-secondary">
+                <Link
+                  to="/contact"
+                  className="font-medium text-brand-primary hover:text-brand-secondary"
+                >
                   Contact Support
                 </Link>
               </p>

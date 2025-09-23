@@ -98,7 +98,9 @@ export class AuthService {
       return response.data;
     } catch (error) {
       console.error('Registration failed:', error);
-      throw new Error(error instanceof Error ? error.message : 'Registration failed');
+      throw new Error(
+        error instanceof Error ? error.message : 'Registration failed'
+      );
     }
   }
 
@@ -133,7 +135,9 @@ export class AuthService {
       return response.data;
     } catch (error) {
       console.error('Failed to fetch profile:', error);
-      throw new Error(error instanceof Error ? error.message : 'Failed to fetch profile');
+      throw new Error(
+        error instanceof Error ? error.message : 'Failed to fetch profile'
+      );
     }
   }
 
@@ -195,7 +199,10 @@ export class AuthService {
   /**
    * Confirm password reset
    */
-  async confirmPasswordReset(token: string, newPassword: string): Promise<void> {
+  async confirmPasswordReset(
+    token: string,
+    newPassword: string
+  ): Promise<void> {
     await ApiRequest({
       method: 'POST',
       url: endpoints.auth.password.confirm,
@@ -206,7 +213,10 @@ export class AuthService {
   /**
    * Change password
    */
-  async changePassword(currentPassword: string, newPassword: string): Promise<void> {
+  async changePassword(
+    currentPassword: string,
+    newPassword: string
+  ): Promise<void> {
     await ApiRequest({
       method: 'POST',
       url: endpoints.auth.password.change,
@@ -225,11 +235,26 @@ export class AuthService {
 
   /**
    * Initiate Google OAuth flow
-   * Redirects user to Google OAuth consent screen
+   * Gets Google OAuth URL from backend and redirects user to Google OAuth consent screen
    */
-  initiateGoogleAuth(): void {
-    // Redirect to backend Google OAuth endpoint
-    window.location.href = endpoints.auth.google.init;
+  async initiateGoogleAuth(): Promise<void> {
+    try {
+      const response = await ApiRequest<{ url: string }>({
+        method: 'GET',
+        url: endpoints.auth.google.init,
+        data: { link: 'false' },
+      });
+
+      // Redirect to the Google OAuth URL returned by backend
+      window.location.href = response.data.url;
+    } catch (error) {
+      console.error('Failed to initiate Google OAuth:', error);
+      throw new Error(
+        error instanceof Error
+          ? error.message
+          : 'Failed to initiate Google OAuth'
+      );
+    }
   }
 
   /**
@@ -255,7 +280,9 @@ export class AuthService {
       return response.data;
     } catch (error) {
       console.error('Google OAuth callback failed:', error);
-      throw new Error(error instanceof Error ? error.message : 'Google OAuth callback failed');
+      throw new Error(
+        error instanceof Error ? error.message : 'Google OAuth callback failed'
+      );
     }
   }
 
@@ -263,10 +290,24 @@ export class AuthService {
    * Link Google account to existing user
    * This method initiates the Google OAuth flow for account linking
    */
-  linkGoogleAccount(): void {
-    // Redirect to backend Google OAuth endpoint with linking parameter
-    const linkUrl = `${endpoints.auth.google.init}?link=true`;
-    window.location.href = linkUrl;
+  async linkGoogleAccount(): Promise<void> {
+    try {
+      const response = await ApiRequest<{ url: string }>({
+        method: 'GET',
+        url: endpoints.auth.google.init,
+        data: { link: 'true' },
+      });
+
+      // Redirect to the Google OAuth URL returned by backend
+      window.location.href = response.data.url;
+    } catch (error) {
+      console.error('Failed to initiate Google account linking:', error);
+      throw new Error(
+        error instanceof Error
+          ? error.message
+          : 'Failed to initiate Google account linking'
+      );
+    }
   }
 
   /**
@@ -280,7 +321,11 @@ export class AuthService {
       });
     } catch (error) {
       console.error('Failed to unlink Google account:', error);
-      throw new Error(error instanceof Error ? error.message : 'Failed to unlink Google account');
+      throw new Error(
+        error instanceof Error
+          ? error.message
+          : 'Failed to unlink Google account'
+      );
     }
   }
 }

@@ -16,12 +16,15 @@ types/
 ## Organization Principles
 
 ### Domain-Driven Design
+
 Each type file corresponds to a specific business domain:
+
 - **`auth.ts`** - User authentication, registration, profile management
 - **`pickup.ts`** - Pickup requests, waste management, scheduling
 - **`admin.ts`** - Administrative functions, driver management, analytics
 
 ### Separation of Concerns
+
 - **Service types** are separate from **hook types**
 - **Request types** are separate from **response types**
 - **Base types** are separate from **extended types**
@@ -31,6 +34,7 @@ Each type file corresponds to a specific business domain:
 ### Authentication Types (`auth.ts`)
 
 #### Core Auth Types
+
 ```typescript
 interface LoginCredentials {
   email: string;
@@ -56,6 +60,7 @@ interface UserProfile {
 ```
 
 #### Auth Response Types
+
 ```typescript
 interface AuthResponse {
   access_token: string;
@@ -70,6 +75,7 @@ interface AuthResponse {
 ```
 
 #### Auth Hook Types
+
 ```typescript
 interface AuthMutationCallbacks {
   onSuccess?: () => void;
@@ -81,9 +87,15 @@ interface AuthMutationCallbacks {
 ### Pickup Types (`pickup.ts`)
 
 #### Core Pickup Types
+
 ```typescript
 type WasteType = 'general' | 'recyclable' | 'hazardous';
-type PickupStatus = 'pending' | 'assigned' | 'in_progress' | 'completed' | 'cancelled';
+type PickupStatus =
+  | 'pending'
+  | 'assigned'
+  | 'in_progress'
+  | 'completed'
+  | 'cancelled';
 
 interface Pickup {
   id: string;
@@ -101,6 +113,7 @@ interface Pickup {
 ```
 
 #### Pickup Request Types
+
 ```typescript
 interface PickupRequest {
   address: string;
@@ -113,6 +126,7 @@ interface PickupRequest {
 ### Admin Types (`admin.ts`)
 
 #### Core Admin Types
+
 ```typescript
 type DriverStatus = 'active' | 'inactive' | 'busy';
 type UserRole = 'user' | 'admin' | 'driver';
@@ -133,6 +147,7 @@ interface Driver {
 ```
 
 #### Dashboard Types
+
 ```typescript
 interface DashboardStats {
   total_pickups: number;
@@ -144,6 +159,7 @@ interface DashboardStats {
 ```
 
 #### Pagination Types
+
 ```typescript
 interface PaginatedResponse<T> {
   data: T[];
@@ -180,19 +196,27 @@ import type { Pickup, PickupStatus, Driver } from '../types';
 ### Best Practices
 
 1. **Use Union Types** for status fields:
+
    ```typescript
-   type PickupStatus = 'pending' | 'assigned' | 'in_progress' | 'completed' | 'cancelled';
+   type PickupStatus =
+     | 'pending'
+     | 'assigned'
+     | 'in_progress'
+     | 'completed'
+     | 'cancelled';
    ```
 
 2. **Make Optional Fields Explicit**:
+
    ```typescript
    interface UserProfile {
-     phone?: string;  // Optional field
+     phone?: string; // Optional field
      address?: string; // Optional field
    }
    ```
 
 3. **Extend Base Types** for specialized use cases:
+
    ```typescript
    interface PickupWithUser extends Pickup {
      user: {
@@ -214,6 +238,7 @@ import type { Pickup, PickupStatus, Driver } from '../types';
 ## Integration with Services and Hooks
 
 ### Service Layer Integration
+
 ```typescript
 // services/authService.ts
 import type { LoginCredentials, AuthResponse } from '../types';
@@ -226,13 +251,15 @@ export class AuthService {
 ```
 
 ### Hook Layer Integration
+
 ```typescript
 // hooks/useAuthMutations.ts
 import type { LoginCredentials, AuthMutationCallbacks } from '../types';
 
 export const useAuthMutations = () => {
   const login = useMutation({
-    mutationFn: (credentials: LoginCredentials) => authService.login(credentials),
+    mutationFn: (credentials: LoginCredentials) =>
+      authService.login(credentials),
     // ...
   });
 };

@@ -105,7 +105,7 @@ function AdminDashboard() {
           <p>Pending: {stats.pending_pickups}</p>
         </div>
       )}
-      
+
       <h2>All Pickups</h2>
       {allPickups?.pickups.map(pickup => (
         <div key={pickup.id}>
@@ -123,16 +123,19 @@ function AdminDashboard() {
 ## Hook Organization Benefits
 
 ### Separation of Concerns
+
 - **Mutations** handle data modifications (POST, PUT, DELETE)
 - **Queries** handle data fetching (GET)
 - Clear separation makes code more maintainable
 
 ### Consistent API
+
 - All mutation hooks return the same structure: `{ mutation1, mutation2, ... }`
 - All query hooks return the same structure: `{ query1, query2, ... }`
 - Predictable hook usage across the application
 
 ### Better Performance
+
 - Queries can be called conditionally with parameters
 - Mutations are only created when needed
 - Reduced bundle size through better tree-shaking
@@ -140,22 +143,26 @@ function AdminDashboard() {
 ## Hook Features
 
 ### Automatic Caching
+
 - Queries are automatically cached and shared across components
 - Stale data is refetched based on configured intervals
 - Cache invalidation happens automatically on mutations
 
 ### Loading States
+
 - `isLoading` - Initial loading state for queries
 - `isPending` - Mutation is in progress
 - `isError` - Error state
 - `error` - Error object with details
 
 ### Optimistic Updates
+
 - Mutations automatically invalidate related queries
 - UI updates immediately while API calls are in progress
 - Automatic rollback on errors
 
 ### Callbacks
+
 - `onSuccess` - Called when mutation succeeds
 - `onError` - Called when mutation fails
 - `onSettled` - Called when mutation completes (success or error)
@@ -166,25 +173,27 @@ Each hook uses structured query keys for efficient caching:
 
 ```typescript
 // Auth
-authKeys.profile() // ['auth', 'profile']
+authKeys.profile(); // ['auth', 'profile']
 
 // Pickups
-pickupKeys.my() // ['pickups', 'my']
-pickupKeys.detail(id) // ['pickups', 'detail', id]
+pickupKeys.my(); // ['pickups', 'my']
+pickupKeys.detail(id); // ['pickups', 'detail', id]
 
 // Admin
-adminKeys.pickups(params) // ['admin', 'pickups', params]
-adminKeys.stats() // ['admin', 'stats']
+adminKeys.pickups(params); // ['admin', 'pickups', params]
+adminKeys.stats(); // ['admin', 'stats']
 ```
 
 ## Hook Categories
 
 ### Mutation Hooks
+
 - **useAuthMutations**: login, register, logout, refreshToken, verifyEmail, resetPassword, changePassword
 - **usePickupMutations**: requestPickup, cancelPickup, updatePickup
 - **useAdminMutations**: assignDriver, updatePickupStatus
 
 ### Query Hooks
+
 - **useAuthQueries**: profile
 - **usePickupQueries**: myPickups, getPickupById
 - **useAdminQueries**: getAllPickups, getAllDrivers, getDashboardStats, getPickupDetails, getAllUsers

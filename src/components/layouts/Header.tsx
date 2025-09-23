@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from '@/components/ui/navigation-menu';
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+} from '@/components/ui/navigation-menu';
 import { Menu, X, Recycle } from 'lucide-react';
 import { APP_CONFIG } from '@/config/app';
 
@@ -24,9 +29,12 @@ export function Header() {
           {/* Desktop Navigation */}
           <NavigationMenu className="hidden md:flex">
             <NavigationMenuList>
-              {APP_CONFIG.navigation.main.map((item) => (
+              {APP_CONFIG.navigation.main.map(item => (
                 <NavigationMenuItem key={item.href}>
-                  <NavigationMenuLink href={item.href} className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50">
+                  <NavigationMenuLink
+                    href={item.href}
+                    className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
+                  >
                     {item.label}
                   </NavigationMenuLink>
                 </NavigationMenuItem>
@@ -39,8 +47,8 @@ export function Header() {
             <Button variant="ghost" size="sm">
               Sign In
             </Button>
-            <Button 
-              size="sm" 
+            <Button
+              size="sm"
               className="bg-brand-primary hover:bg-brand-secondary text-white"
             >
               Get Started
@@ -54,7 +62,11 @@ export function Header() {
             className="md:hidden"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
-            {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {isMobileMenuOpen ? (
+              <X className="h-5 w-5" />
+            ) : (
+              <Menu className="h-5 w-5" />
+            )}
           </Button>
         </div>
 
@@ -62,7 +74,7 @@ export function Header() {
         {isMobileMenuOpen && (
           <div className="md:hidden border-t">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              {APP_CONFIG.navigation.main.map((item) => (
+              {APP_CONFIG.navigation.main.map(item => (
                 <a
                   key={item.href}
                   href={item.href}
@@ -73,11 +85,15 @@ export function Header() {
                 </a>
               ))}
               <div className="pt-4 space-y-2">
-                <Button variant="ghost" size="sm" className="w-full justify-start">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full justify-start"
+                >
                   Sign In
                 </Button>
-                <Button 
-                  size="sm" 
+                <Button
+                  size="sm"
                   className="w-full bg-brand-primary hover:bg-brand-secondary text-white"
                 >
                   Get Started

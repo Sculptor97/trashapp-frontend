@@ -68,7 +68,9 @@ export const GoogleCallback = () => {
               Authentication Failed
             </h2>
             <p className="mt-2 text-sm text-gray-600">
-              {error instanceof Error ? error.message : 'An error occurred during authentication'}
+              {error instanceof Error
+                ? error.message
+                : 'An error occurred during authentication'}
             </p>
             <div className="mt-6">
               <button

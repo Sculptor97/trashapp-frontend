@@ -14,11 +14,14 @@ export const useGoogleAuth = () => {
    * Initiate Google OAuth login flow
    * Redirects user to Google OAuth consent screen
    */
-  const loginWithGoogle = useCallback(() => {
+  const loginWithGoogle = useCallback(async () => {
     try {
-      authService.initiateGoogleAuth();
+      await authService.initiateGoogleAuth();
     } catch (error) {
-      ErrorHandler.handleAndShowError(error, 'Failed to start Google authentication');
+      ErrorHandler.handleAndShowError(
+        error,
+        'Failed to start Google authentication'
+      );
     }
   }, []);
 
@@ -26,11 +29,14 @@ export const useGoogleAuth = () => {
    * Link Google account to existing user
    * Redirects user to Google OAuth for account linking
    */
-  const linkGoogleAccount = useCallback(() => {
+  const linkGoogleAccount = useCallback(async () => {
     try {
-      authService.linkGoogleAccount();
+      await authService.linkGoogleAccount();
     } catch (error) {
-      ErrorHandler.handleAndShowError(error, 'Failed to start Google account linking');
+      ErrorHandler.handleAndShowError(
+        error,
+        'Failed to start Google account linking'
+      );
     }
   }, []);
 
@@ -63,11 +69,11 @@ export const useGoogleAuth = () => {
     linkGoogleAccount,
     unlinkGoogle,
     handleCallback,
-    
+
     // Loading states
     isLinking: unlinkGoogleAccount.isPending,
     isHandlingCallback: handleGoogleCallback.isPending,
-    
+
     // Error states
     error: unlinkGoogleAccount.error || handleGoogleCallback.error,
   };

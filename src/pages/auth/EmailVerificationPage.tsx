@@ -9,18 +9,23 @@ export function EmailVerificationPage() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const token = searchParams.get('token');
-  const [verificationStatus, setVerificationStatus] = useState<'pending' | 'success' | 'error'>('pending');
-  
+  const [verificationStatus, setVerificationStatus] = useState<
+    'pending' | 'success' | 'error'
+  >('pending');
+
   const { verifyEmail, resendEmailVerification } = useAuthMutations();
 
-  const handleEmailVerification = useCallback(async (verificationToken: string) => {
-    try {
-      await verifyEmail.mutateAsync(verificationToken);
-      setVerificationStatus('success');
-    } catch {
-      setVerificationStatus('error');
-    }
-  }, [verifyEmail]);
+  const handleEmailVerification = useCallback(
+    async (verificationToken: string) => {
+      try {
+        await verifyEmail.mutateAsync(verificationToken);
+        setVerificationStatus('success');
+      } catch {
+        setVerificationStatus('error');
+      }
+    },
+    [verifyEmail]
+  );
 
   useEffect(() => {
     if (token) {
@@ -44,9 +49,12 @@ export function EmailVerificationPage() {
             <CheckCircle className="h-8 w-8 text-green-600" />
           </div>
           <div className="space-y-2">
-            <CardTitle className="text-2xl font-bold text-gray-900">Email Verified!</CardTitle>
+            <CardTitle className="text-2xl font-bold text-gray-900">
+              Email Verified!
+            </CardTitle>
             <CardDescription className="text-gray-600">
-              Your email has been successfully verified. You can now access all features of EcoCollect.
+              Your email has been successfully verified. You can now access all
+              features of EcoCollect.
             </CardDescription>
           </div>
         </div>
@@ -58,7 +66,7 @@ export function EmailVerificationPage() {
           >
             Go to Dashboard
           </Button>
-          
+
           <Button
             variant="outline"
             onClick={() => navigate('/auth/login')}
@@ -79,9 +87,12 @@ export function EmailVerificationPage() {
             <Mail className="h-8 w-8 text-red-600" />
           </div>
           <div className="space-y-2">
-            <CardTitle className="text-2xl font-bold text-gray-900">Verification Failed</CardTitle>
+            <CardTitle className="text-2xl font-bold text-gray-900">
+              Verification Failed
+            </CardTitle>
             <CardDescription className="text-gray-600">
-              The verification link is invalid or has expired. Please request a new verification email.
+              The verification link is invalid or has expired. Please request a
+              new verification email.
             </CardDescription>
           </div>
         </div>
@@ -101,7 +112,7 @@ export function EmailVerificationPage() {
               'Resend Verification Email'
             )}
           </Button>
-          
+
           <Button
             variant="outline"
             onClick={() => navigate('/auth/login')}
@@ -122,9 +133,12 @@ export function EmailVerificationPage() {
           <Mail className="h-8 w-8 text-brand-primary" />
         </div>
         <div className="space-y-2">
-          <CardTitle className="text-2xl font-bold text-gray-900">Check Your Email</CardTitle>
+          <CardTitle className="text-2xl font-bold text-gray-900">
+            Check Your Email
+          </CardTitle>
           <CardDescription className="text-gray-600">
-            We've sent a verification link to your email address. Please check your inbox and click the link to verify your account.
+            We've sent a verification link to your email address. Please check
+            your inbox and click the link to verify your account.
           </CardDescription>
         </div>
       </div>
@@ -155,7 +169,7 @@ export function EmailVerificationPage() {
             'Resend Verification Email'
           )}
         </Button>
-        
+
         <Button
           variant="outline"
           onClick={() => navigate('/auth/login')}

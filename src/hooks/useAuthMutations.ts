@@ -9,13 +9,14 @@ export const useAuthMutations = () => {
   const queryClient = useQueryClient();
 
   const login = useMutation({
-    mutationFn: (credentials: LoginCredentials) => authService.login(credentials),
+    mutationFn: (credentials: LoginCredentials) =>
+      authService.login(credentials),
     onSuccess: () => {
       // Invalidate and refetch profile data
       queryClient.invalidateQueries({ queryKey: authKeys.profile() });
       ErrorHandler.showSuccessToast('Login successful!');
     },
-    onError: (error) => {
+    onError: error => {
       ErrorHandler.handleAndShowError(error, 'Login failed');
     },
   });
@@ -27,7 +28,7 @@ export const useAuthMutations = () => {
       queryClient.invalidateQueries({ queryKey: authKeys.profile() });
       ErrorHandler.showSuccessToast('Registration successful!');
     },
-    onError: (error) => {
+    onError: error => {
       ErrorHandler.handleAndShowError(error, 'Registration failed');
     },
   });
@@ -39,7 +40,7 @@ export const useAuthMutations = () => {
       queryClient.clear();
       ErrorHandler.showSuccessToast('Logged out successfully!');
     },
-    onError: (error) => {
+    onError: error => {
       ErrorHandler.handleAndShowError(error, 'Logout failed');
     },
   });
@@ -65,8 +66,13 @@ export const useAuthMutations = () => {
   });
 
   const confirmPasswordReset = useMutation({
-    mutationFn: ({ token, newPassword }: { token: string; newPassword: string }) =>
-      authService.confirmPasswordReset(token, newPassword),
+    mutationFn: ({
+      token,
+      newPassword,
+    }: {
+      token: string;
+      newPassword: string;
+    }) => authService.confirmPasswordReset(token, newPassword),
   });
 
   const changePassword = useMutation({
@@ -87,7 +93,7 @@ export const useAuthMutations = () => {
       queryClient.invalidateQueries({ queryKey: authKeys.profile() });
       ErrorHandler.showSuccessToast('Google authentication successful!');
     },
-    onError: (error) => {
+    onError: error => {
       ErrorHandler.handleAndShowError(error, 'Google authentication failed');
     },
   });
@@ -99,7 +105,7 @@ export const useAuthMutations = () => {
       queryClient.invalidateQueries({ queryKey: authKeys.profile() });
       ErrorHandler.showSuccessToast('Google account unlinked successfully!');
     },
-    onError: (error) => {
+    onError: error => {
       ErrorHandler.handleAndShowError(error, 'Failed to unlink Google account');
     },
   });

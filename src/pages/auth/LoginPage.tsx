@@ -31,7 +31,7 @@ type LoginFormData = z.infer<typeof loginSchema>;
 export function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  
+
   const { login } = useAuthMutations();
 
   const form = useForm<LoginFormData>({
@@ -45,9 +45,9 @@ export function LoginPage() {
 
   const onSubmit = async (data: LoginFormData) => {
     try {
-      await login.mutateAsync({ 
-        email: data.email, 
-        password: data.password 
+      await login.mutateAsync({
+        email: data.email,
+        password: data.password,
       });
       navigate('/dashboard'); // Redirect to dashboard after successful login
     } catch {
@@ -58,7 +58,9 @@ export function LoginPage() {
   return (
     <div className="space-y-6">
       <div className="text-center space-y-2">
-        <CardTitle className="text-2xl font-bold text-gray-900">Welcome Back</CardTitle>
+        <CardTitle className="text-2xl font-bold text-gray-900">
+          Welcome Back
+        </CardTitle>
         <CardDescription className="text-gray-600">
           Sign in to your EcoCollect account to continue
         </CardDescription>
@@ -112,7 +114,11 @@ export function LoginPage() {
                       onClick={() => setShowPassword(!showPassword)}
                       className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
                     >
-                      {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      {showPassword ? (
+                        <EyeOff className="h-4 w-4" />
+                      ) : (
+                        <Eye className="h-4 w-4" />
+                      )}
                     </button>
                   </div>
                 </FormControl>
@@ -166,7 +172,7 @@ export function LoginPage() {
         </div>
       </div>
 
-      <GoogleSignInButton 
+      <GoogleSignInButton
         text="Sign in with Google"
         size="lg"
         className="w-full"

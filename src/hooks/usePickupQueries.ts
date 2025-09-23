@@ -11,7 +11,7 @@ export const usePickupQueries = () => {
     staleTime: 2 * 60 * 1000, // 2 minutes
   });
 
-  const getPickupById = (pickupId: string) => {
+  const useGetPickupById = (pickupId: string) => {
     return useQuery({
       queryKey: pickupKeys.detail(pickupId),
       queryFn: () => pickupService.getPickupById(pickupId),
@@ -22,6 +22,6 @@ export const usePickupQueries = () => {
 
   return {
     myPickups,
-    getPickupById,
+    useGetPickupById,
   };
 };
