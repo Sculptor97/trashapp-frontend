@@ -55,6 +55,13 @@ export interface ChangePasswordRequest {
   new_password: string;
 }
 
+// Google Auth Types (for Passport.js backend)
+export interface GoogleAuthResponse {
+  success: boolean;
+  message?: string;
+  redirect_url?: string;
+}
+
 // Auth hook types
 export interface AuthMutationCallbacks {
   onSuccess?: () => void;

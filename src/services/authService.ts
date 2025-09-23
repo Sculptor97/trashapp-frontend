@@ -220,6 +220,69 @@ export class AuthService {
   isAuthenticated(): boolean {
     return this.tokenManager.isAuthenticated();
   }
+
+  // Google OAuth Methods (for Passport.js backend)
+
+  /**
+   * Initiate Google OAuth flow
+   * Redirects user to Google OAuth consent screen
+   */
+  initiateGoogleAuth(): void {
+    // Redirect to backend Google OAuth endpoint
+    window.location.href = endpoints.auth.google.init;
+  }
+
+  /**
+   * Handle Google OAuth callback
+   * This method should be called after the user returns from Google OAuth
+   * The backend will handle the OAuth flow and redirect back with tokens
+   */
+  async handleGoogleCallback(): Promise<AuthResponse> {
+    try {
+      const response = await ApiRequest<AuthResponse>({
+        method: 'GET',
+        url: endpoints.auth.google.callback,
+      });
+
+      // Save tokens to localStorage if they exist
+      if (response.data.access_token) {
+        this.tokenManager.setToken(response.data.access_token);
+      }
+      if (response.data.refresh_token) {
+        this.tokenManager.setRefreshToken(response.data.refresh_token);
+      }
+
+      return response.data;
+    } catch (error) {
+      console.error('Google OAuth callback failed:', error);
+      throw new Error(error instanceof Error ? error.message : 'Google OAuth callback failed');
+    }
+  }
+
+  /**
+   * Link Google account to existing user
+   * This method initiates the Google OAuth flow for account linking
+   */
+  linkGoogleAccount(): void {
+    // Redirect to backend Google OAuth endpoint with linking parameter
+    const linkUrl = `${endpoints.auth.google.init}?link=true`;
+    window.location.href = linkUrl;
+  }
+
+  /**
+   * Unlink Google account from user
+   */
+  async unlinkGoogleAccount(): Promise<void> {
+    try {
+      await ApiRequest({
+        method: 'DELETE',
+        url: endpoints.auth.google.exchange,
+      });
+    } catch (error) {
+      console.error('Failed to unlink Google account:', error);
+      throw new Error(error instanceof Error ? error.message : 'Failed to unlink Google account');
+    }
+  }
 }
 
 // Export singleton instance

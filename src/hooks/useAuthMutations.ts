@@ -79,6 +79,31 @@ export const useAuthMutations = () => {
     }) => authService.changePassword(currentPassword, newPassword),
   });
 
+  // Google OAuth Mutations
+  const handleGoogleCallback = useMutation({
+    mutationFn: () => authService.handleGoogleCallback(),
+    onSuccess: () => {
+      // Invalidate and refetch profile data
+      queryClient.invalidateQueries({ queryKey: authKeys.profile() });
+      ErrorHandler.showSuccessToast('Google authentication successful!');
+    },
+    onError: (error) => {
+      ErrorHandler.handleAndShowError(error, 'Google authentication failed');
+    },
+  });
+
+  const unlinkGoogleAccount = useMutation({
+    mutationFn: () => authService.unlinkGoogleAccount(),
+    onSuccess: () => {
+      // Invalidate and refetch profile data
+      queryClient.invalidateQueries({ queryKey: authKeys.profile() });
+      ErrorHandler.showSuccessToast('Google account unlinked successfully!');
+    },
+    onError: (error) => {
+      ErrorHandler.handleAndShowError(error, 'Failed to unlink Google account');
+    },
+  });
+
   return {
     login,
     register,
@@ -89,5 +114,8 @@ export const useAuthMutations = () => {
     resetPassword,
     confirmPasswordReset,
     changePassword,
+    // Google OAuth mutations
+    handleGoogleCallback,
+    unlinkGoogleAccount,
   };
 };
