@@ -16,7 +16,7 @@ export const GoogleCallback = () => {
         await handleCallback();
         // Redirect to dashboard or home page after successful authentication
         navigate('/dashboard', { replace: true });
-      } catch (error) {
+      } catch {
         // Error is already handled by the hook
         // Redirect to login page on error
         navigate('/login', { replace: true });

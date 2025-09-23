@@ -40,7 +40,7 @@ export const useGoogleAuth = () => {
   const unlinkGoogle = useCallback(async () => {
     try {
       await unlinkGoogleAccount.mutateAsync();
-    } catch (error) {
+    } catch {
       // Error is already handled by the mutation
     }
   }, [unlinkGoogleAccount]);
@@ -52,7 +52,7 @@ export const useGoogleAuth = () => {
   const handleCallback = useCallback(async () => {
     try {
       await handleGoogleCallback.mutateAsync();
-    } catch (error) {
+    } catch {
       // Error is already handled by the mutation
     }
   }, [handleGoogleCallback]);
