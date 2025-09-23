@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import {
   NavigationMenu,
@@ -17,14 +18,14 @@ export function Header() {
       <div className="container">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center space-x-2">
             <div className="flex items-center space-x-2">
               <Recycle className="h-8 w-8 text-brand-primary" />
               <span className="text-2xl font-bold text-brand-primary">
                 {APP_CONFIG.name}
               </span>
             </div>
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <NavigationMenu className="hidden md:flex">
@@ -44,15 +45,19 @@ export function Header() {
 
           {/* Desktop CTA Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="ghost" size="sm">
-              Sign In
-            </Button>
-            <Button
-              size="sm"
-              className="bg-brand-primary hover:bg-brand-secondary text-white"
-            >
-              Get Started
-            </Button>
+            <Link to="/auth/login">
+              <Button variant="ghost" size="sm">
+                Sign In
+              </Button>
+            </Link>
+            <Link to="/auth/register">
+              <Button
+                size="sm"
+                className="bg-brand-primary hover:bg-brand-secondary text-white"
+              >
+                Get Started
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -85,19 +90,25 @@ export function Header() {
                 </a>
               ))}
               <div className="pt-4 space-y-2">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="w-full justify-start"
-                >
-                  Sign In
-                </Button>
-                <Button
-                  size="sm"
-                  className="w-full bg-brand-primary hover:bg-brand-secondary text-white"
-                >
-                  Get Started
-                </Button>
+                <Link to="/auth/login" className="block">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="w-full justify-start"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Sign In
+                  </Button>
+                </Link>
+                <Link to="/auth/register" className="block">
+                  <Button
+                    size="sm"
+                    className="w-full bg-brand-primary hover:bg-brand-secondary text-white"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Get Started
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>

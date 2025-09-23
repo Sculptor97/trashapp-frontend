@@ -10,7 +10,7 @@ import { CardDescription, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { GoogleSignInButton } from '@/components/auth/GoogleSignInButton';
 import { useAuthMutations } from '@/hooks/useAuthMutations';
-import { Eye, EyeOff, Mail, Lock, User } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, User, Loader2 } from 'lucide-react';
 import {
   Form,
   FormControl,
@@ -239,7 +239,14 @@ export function RegisterPage() {
             className="w-full bg-brand-primary hover:bg-brand-secondary text-white font-semibold py-2.5"
             disabled={register.isPending}
           >
-            {register.isPending ? 'Creating Account...' : 'Create Account'}
+            {register.isPending ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Creating Account...
+              </>
+            ) : (
+              'Create Account'
+            )}
           </Button>
         </form>
       </Form>

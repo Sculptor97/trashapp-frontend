@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ArrowRight, Users, MapPin, Star } from 'lucide-react';
@@ -25,13 +26,15 @@ export function HeroSection() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button
-                size="lg"
-                className="bg-brand-primary hover:bg-brand-secondary text-white text-lg px-8 py-6"
-              >
-                {APP_CONFIG.cta.primary.text}
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+              <Link to={APP_CONFIG.cta.primary.href}>
+                <Button
+                  size="lg"
+                  className="bg-brand-primary hover:bg-brand-secondary text-white text-lg px-8 py-6"
+                >
+                  {APP_CONFIG.cta.primary.text}
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
               <Button
                 variant="outline"
                 size="lg"

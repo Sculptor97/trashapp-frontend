@@ -1,16 +1,16 @@
 import { Outlet, Link } from 'react-router-dom';
-import { Recycle } from 'lucide-react';
+import { Recycle, ArrowLeft } from 'lucide-react';
 
 export function AuthLayout() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-brand-light via-white to-brand-accent/20">
       <div className="flex min-h-screen">
         {/* Left Side - Branding */}
-        <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-brand-primary to-brand-secondary relative overflow-hidden">
+        <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-brand-primary to-brand-secondary relative overflow-hidden items-center justify-center">
           <div className="absolute inset-0 bg-black/10"></div>
-          <div className="relative z-10 flex flex-col justify-center items-center text-white p-12">
-            <div className="text-center space-y-8">
-              <div className="flex items-center justify-center space-x-3">
+          <div className="relative z-10 flex items-center justify-center text-white p-12">
+            <div className="space-y-8 text-left w-full max-w-md">
+              <div className="flex items-center space-x-3">
                 <Recycle className="h-12 w-12 text-brand-light" />
                 <span className="text-3xl font-bold text-brand-light">
                   EcoCollect
@@ -25,7 +25,7 @@ export function AuthLayout() {
                   management and environmental sustainability.
                 </p>
               </div>
-              <div className="grid grid-cols-2 gap-6 text-center">
+              <div className="grid grid-cols-2 gap-2">
                 <div className="space-y-2">
                   <div className="text-3xl font-bold">10K+</div>
                   <div className="text-brand-light text-sm">Active Users</div>
@@ -44,6 +44,17 @@ export function AuthLayout() {
         {/* Right Side - Auth Forms */}
         <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
           <div className="mx-auto w-full max-w-md">
+            {/* Back to Home Link */}
+            <div className="mb-6">
+              <Link
+                to="/"
+                className="inline-flex items-center text-sm text-gray-600 hover:text-brand-primary transition-colors"
+              >
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Back to Home
+              </Link>
+            </div>
+
             {/* Mobile Logo */}
             <div className="lg:hidden flex items-center justify-center space-x-2 mb-8">
               <Recycle className="h-8 w-8 text-brand-primary" />

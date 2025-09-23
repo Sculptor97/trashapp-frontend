@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -55,9 +56,11 @@ export function PricingSection() {
                     </li>
                   ))}
                 </ul>
-                <Button className="w-full bg-brand-primary hover:bg-brand-secondary text-white">
-                  Choose {plan.name}
-                </Button>
+                <Link to="/auth/register">
+                  <Button className="w-full bg-brand-primary hover:bg-brand-secondary text-white">
+                    Choose {plan.name}
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
           ))}

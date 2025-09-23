@@ -169,7 +169,7 @@ export const APP_CONFIG = {
   cta: {
     primary: {
       text: 'Start Your Journey',
-      href: '#',
+      href: '/auth/register',
     },
     secondary: {
       text: 'Watch Demo',
