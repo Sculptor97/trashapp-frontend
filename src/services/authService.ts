@@ -54,42 +54,52 @@ export class AuthService {
    * Login user with email and password
    */
   async login(credentials: LoginCredentials): Promise<AuthResponse> {
-    const response = await ApiRequest<AuthResponse>({
-      method: 'POST',
-      url: endpoints.auth.basic.login,
-      data: credentials,
-    });
+    try {
+      const response = await ApiRequest<AuthResponse>({
+        method: 'POST',
+        url: endpoints.auth.basic.login,
+        data: credentials,
+      });
 
-    // Save tokens to localStorage
-    if (response.data.access_token) {
-      this.tokenManager.setToken(response.data.access_token);
-    }
-    if (response.data.refresh_token) {
-      this.tokenManager.setRefreshToken(response.data.refresh_token);
-    }
+      // Save tokens to localStorage
+      if (response.data.access_token) {
+        this.tokenManager.setToken(response.data.access_token);
+      }
+      if (response.data.refresh_token) {
+        this.tokenManager.setRefreshToken(response.data.refresh_token);
+      }
 
-    return response.data;
+      return response.data;
+    } catch (error) {
+      console.error('Login failed:', error);
+      throw new Error(error instanceof Error ? error.message : 'Login failed');
+    }
   }
 
   /**
    * Register new user
    */
   async register(data: RegisterData): Promise<AuthResponse> {
-    const response = await ApiRequest<AuthResponse>({
-      method: 'POST',
-      url: endpoints.auth.basic.register,
-      data,
-    });
+    try {
+      const response = await ApiRequest<AuthResponse>({
+        method: 'POST',
+        url: endpoints.auth.basic.register,
+        data,
+      });
 
-    // Save tokens to localStorage
-    if (response.data.access_token) {
-      this.tokenManager.setToken(response.data.access_token);
-    }
-    if (response.data.refresh_token) {
-      this.tokenManager.setRefreshToken(response.data.refresh_token);
-    }
+      // Save tokens to localStorage
+      if (response.data.access_token) {
+        this.tokenManager.setToken(response.data.access_token);
+      }
+      if (response.data.refresh_token) {
+        this.tokenManager.setRefreshToken(response.data.refresh_token);
+      }
 
-    return response.data;
+      return response.data;
+    } catch (error) {
+      console.error('Registration failed:', error);
+      throw new Error(error instanceof Error ? error.message : 'Registration failed');
+    }
   }
 
   /**
@@ -114,12 +124,17 @@ export class AuthService {
    * Get user profile
    */
   async getProfile(): Promise<UserProfile> {
-    const response = await ApiRequest<UserProfile>({
-      method: 'GET',
-      url: endpoints.auth.profile,
-    });
+    try {
+      const response = await ApiRequest<UserProfile>({
+        method: 'GET',
+        url: endpoints.auth.profile,
+      });
 
-    return response.data;
+      return response.data;
+    } catch (error) {
+      console.error('Failed to fetch profile:', error);
+      throw new Error(error instanceof Error ? error.message : 'Failed to fetch profile');
+    }
   }
 
   /**

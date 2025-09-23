@@ -1,11 +1,14 @@
 // Auth hooks
 export { useAuthMutations } from './useAuthMutations';
-export { useAuthQueries, authKeys } from './useAuthQueries';
+export { useAuthQueries } from './useAuthQueries';
 
 // Pickup hooks
 export { usePickupMutations } from './usePickupMutations';
-export { usePickupQueries, pickupKeys } from './usePickupQueries';
+export { usePickupQueries } from './usePickupQueries';
 
 // Admin hooks
 export { useAdminMutations } from './useAdminMutations';
-export { useAdminQueries, adminKeys } from './useAdminQueries';
+export { useAdminQueries } from './useAdminQueries';
+
+// Re-export centralized query keys
+export { queryKeys, authKeys, pickupKeys, adminKeys } from '../API/queryKeys';

@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { pickupService } from '../services/pickupService';
-import { pickupKeys } from './usePickupQueries';
+import { pickupKeys } from '../API/queryKeys';
+import { ErrorHandler } from '../lib/utils/errorHandler';
 import type { PickupRequest } from '../types';
 
 // Pickup Mutation Hooks
@@ -12,6 +13,10 @@ export const usePickupMutations = () => {
     onSuccess: () => {
       // Invalidate and refetch user's pickups
       queryClient.invalidateQueries({ queryKey: pickupKeys.my() });
+      ErrorHandler.showSuccessToast('Pickup requested successfully!');
+    },
+    onError: (error) => {
+      ErrorHandler.handleAndShowError(error, 'Failed to request pickup');
     },
   });
 

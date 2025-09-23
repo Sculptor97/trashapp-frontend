@@ -1,12 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { pickupService } from '../services/pickupService';
-
-// Query keys
-export const pickupKeys = {
-  all: ['pickups'] as const,
-  my: () => [...pickupKeys.all, 'my'] as const,
-  detail: (id: string) => [...pickupKeys.all, 'detail', id] as const,
-};
+import { pickupKeys } from '../API/queryKeys';
 
 // Pickup Query Hooks
 export const usePickupQueries = () => {

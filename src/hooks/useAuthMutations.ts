@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { authService } from '../services/authService';
-import { authKeys } from './useAuthQueries';
+import { authKeys } from '../API/queryKeys';
+import { ErrorHandler } from '../lib/utils/errorHandler';
 import type { LoginCredentials, RegisterData } from '../types';
 
 // Auth Mutation Hooks
@@ -12,6 +13,10 @@ export const useAuthMutations = () => {
     onSuccess: () => {
       // Invalidate and refetch profile data
       queryClient.invalidateQueries({ queryKey: authKeys.profile() });
+      ErrorHandler.showSuccessToast('Login successful!');
+    },
+    onError: (error) => {
+      ErrorHandler.handleAndShowError(error, 'Login failed');
     },
   });
 
@@ -20,6 +25,10 @@ export const useAuthMutations = () => {
     onSuccess: () => {
       // Invalidate and refetch profile data
       queryClient.invalidateQueries({ queryKey: authKeys.profile() });
+      ErrorHandler.showSuccessToast('Registration successful!');
+    },
+    onError: (error) => {
+      ErrorHandler.handleAndShowError(error, 'Registration failed');
     },
   });
 
@@ -28,6 +37,10 @@ export const useAuthMutations = () => {
     onSuccess: () => {
       // Clear all cached data
       queryClient.clear();
+      ErrorHandler.showSuccessToast('Logged out successfully!');
+    },
+    onError: (error) => {
+      ErrorHandler.handleAndShowError(error, 'Logout failed');
     },
   });
 

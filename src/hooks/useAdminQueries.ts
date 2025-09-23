@@ -1,16 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { adminService } from '../services/adminService';
+import { adminKeys } from '../API/queryKeys';
 import type { PaginationParams } from '../types';
-
-// Query keys
-export const adminKeys = {
-  all: ['admin'] as const,
-  pickups: (params?: PaginationParams) => [...adminKeys.all, 'pickups', params] as const,
-  drivers: () => [...adminKeys.all, 'drivers'] as const,
-  stats: () => [...adminKeys.all, 'stats'] as const,
-  users: (params?: PaginationParams) => [...adminKeys.all, 'users', params] as const,
-  pickupDetail: (id: string) => [...adminKeys.all, 'pickup', id] as const,
-};
 
 // Admin Query Hooks
 export const useAdminQueries = () => {
