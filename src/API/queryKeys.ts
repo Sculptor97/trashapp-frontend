@@ -18,10 +18,13 @@ export const authKeys = {
 // Pickup query keys
 export const pickupKeys = {
   all: ['pickups'] as const,
-  my: () => createQueryKey('pickups', 'my'),
+  my: (filters?: any) => createQueryKey('pickups', 'my', filters),
   detail: (id: string) => createQueryKey('pickups', 'detail', id),
   byStatus: (status: string) => createQueryKey('pickups', 'status', status),
   byUser: (userId: string) => createQueryKey('pickups', 'user', userId),
+  stats: () => createQueryKey('pickups', 'stats'),
+  tracking: (id: string) => createQueryKey('pickups', 'tracking', id),
+  recurring: () => createQueryKey('pickups', 'recurring'),
 };
 
 // Admin query keys

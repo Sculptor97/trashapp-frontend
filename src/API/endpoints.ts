@@ -36,4 +36,46 @@ export const endpoints = {
       request: '/auth/account/delete/request/',
     },
   },
+
+  admin: {
+    pickups: {
+      all: '/admin/pickups/',
+      assign: '/admin/pickups/assign/',
+      detail: (pickupId: string) => `/admin/pickups/${pickupId}/`,
+    },
+    drivers: {
+      all: '/admin/drivers/',
+      detail: (driverId: string) => `/admin/drivers/${driverId}/`,
+    },
+    dashboard: {
+      stats: '/admin/dashboard/stats/',
+    },
+    users: {
+      all: '/admin/users/',
+    },
+  },
+  customer: {
+    pickups: {
+      all: '/customer/pickups/',
+      request: '/customer/pickups/request/',
+      my: '/customer/pickups/my/',
+      myWithFilters: (params: string) => `/customer/pickups/my/?${params}`,
+      detail: (pickupId: string) => `/customer/pickups/${pickupId}/`,
+      cancel: (pickupId: string) => `/customer/pickups/${pickupId}/cancel/`,
+      photos: (pickupId: string) => `/customer/pickups/${pickupId}/photos/`,
+      tracking: (pickupId: string) => `/customer/pickups/${pickupId}/tracking/`,
+      rate: (pickupId: string) => `/customer/pickups/${pickupId}/rate/`,
+      contactDriver: (pickupId: string) =>
+        `/customer/pickups/${pickupId}/contact-driver/`,
+      stats: '/customer/pickups/stats/',
+      recurring: {
+        all: '/customer/pickups/recurring/',
+        create: '/customer/pickups/recurring/create/',
+        detail: (scheduleId: string) =>
+          `/customer/pickups/recurring/${scheduleId}/`,
+        toggle: (scheduleId: string) =>
+          `/customer/pickups/recurring/${scheduleId}/toggle/`,
+      },
+    },
+  },
 };

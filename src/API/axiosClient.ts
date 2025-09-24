@@ -8,12 +8,14 @@ import axios, {
 } from 'axios';
 import type { ApiResponse, ErrorResponse } from './types/api';
 
-const AFRO_CONNECT_BASE_URL =
+const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api';
+
+console.log('API_BASE_URL', API_BASE_URL);
 
 // Default configuration for FPL API
 const defaultConfig: AxiosRequestConfig = {
-  baseURL: AFRO_CONNECT_BASE_URL,
+  baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',
@@ -28,7 +30,7 @@ const axiosClient: AxiosInstance = axios.create(defaultConfig);
 axiosClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     // Log request in development
-    if (import.meta.env.DEV) {
+    if (import.meta.env.VITE_DEV) {
       console.log(`API Request: ${config.method?.toUpperCase()} ${config.url}`);
     }
     return config;
@@ -43,7 +45,7 @@ axiosClient.interceptors.request.use(
 axiosClient.interceptors.response.use(
   (response: AxiosResponse) => {
     // Log response in development
-    if (import.meta.env.DEV) {
+    if (import.meta.env.VITE_DEV) {
       console.log(`API Response: ${response.status} ${response.config.url}`);
     }
     return response;

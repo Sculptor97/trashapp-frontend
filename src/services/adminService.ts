@@ -1,3 +1,4 @@
+import { endpoints } from '@/API/endpoints';
 import ApiRequest from '../API/axiosClient';
 import type {
   PaginationParams,
@@ -21,7 +22,7 @@ export class AdminService {
     try {
       const response = await ApiRequest<PaginatedPickupsResponse>({
         method: 'GET',
-        url: '/admin/pickups/', // Placeholder endpoint - to be updated when backend is ready
+        url: endpoints.admin.pickups.all,
         config: {
           params,
         },
@@ -46,7 +47,7 @@ export class AdminService {
     try {
       const response = await ApiRequest<AssignDriverResponse>({
         method: 'POST',
-        url: '/admin/pickups/assign/', // Placeholder endpoint
+        url: endpoints.admin.pickups.assign,
         data: {
           pickup_id: pickupId,
           driver_id: driverId,
@@ -69,7 +70,7 @@ export class AdminService {
     try {
       const response = await ApiRequest<Driver[]>({
         method: 'GET',
-        url: '/admin/drivers/', // Placeholder endpoint
+        url: endpoints.admin.drivers.all,
       });
 
       return response.data;
@@ -88,7 +89,7 @@ export class AdminService {
     try {
       const response = await ApiRequest<DashboardStats>({
         method: 'GET',
-        url: '/admin/dashboard/stats/', // Placeholder endpoint
+        url: endpoints.admin.dashboard.stats,
       });
 
       return response.data;
@@ -112,7 +113,7 @@ export class AdminService {
     try {
       const response = await ApiRequest<PickupWithUser>({
         method: 'PATCH',
-        url: `/admin/pickups/${pickupId}/status/`, // Placeholder endpoint
+        url: endpoints.admin.pickups.detail(pickupId),
         data: { status },
       });
 
@@ -134,7 +135,7 @@ export class AdminService {
     try {
       const response = await ApiRequest<PickupWithUser>({
         method: 'GET',
-        url: `/admin/pickups/${pickupId}/`, // Placeholder endpoint
+        url: endpoints.admin.pickups.detail(pickupId),
       });
 
       return response.data;
@@ -157,7 +158,7 @@ export class AdminService {
     try {
       const response = await ApiRequest<PaginatedUsersResponse>({
         method: 'GET',
-        url: '/admin/users/', // Placeholder endpoint
+        url: endpoints.admin.users.all,
         config: {
           params,
         },

@@ -33,6 +33,16 @@ export const APP_CONFIG = {
     format: (amount: number) => `${amount.toLocaleString()} FCFA`,
   },
 
+  // Mapbox Configuration
+  mapbox: {
+    accessToken:
+      import.meta.env.VITE_MAPBOX_ACCESS_TOKEN ||
+      'pk.eyJ1IjoiZWNvY29sbGVjdCIsImEiOiJjbHFkNXB0ZjcwMDVjMmptdWR1YmVldjFsIn0.example',
+    defaultCenter: [9.7043, 4.0483] as [number, number], // Douala, Cameroon
+    defaultZoom: 12,
+    style: 'mapbox://styles/mapbox/streets-v12',
+  },
+
   // App Statistics
   stats: {
     users: '10,000+',

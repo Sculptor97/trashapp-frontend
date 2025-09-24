@@ -10,6 +10,7 @@ import {
   Truck,
   Package,
   DollarSign,
+  Star,
 } from 'lucide-react';
 
 const mockMetrics = [
@@ -185,7 +186,8 @@ export default function AdminReports() {
                     <div>
                       <div className="font-medium">{driver.name}</div>
                       <div className="text-sm text-muted-foreground">
-                        {driver.pickups} pickups • ⭐ {driver.rating}
+                        {driver.pickups} pickups •{' '}
+                        <Star className="h-3 w-3 inline mx-1" /> {driver.rating}
                       </div>
                     </div>
                   </div>
