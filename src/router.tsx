@@ -14,6 +14,7 @@ import {
   EmailVerificationPage,
   ForgotPasswordPage,
   ResetPasswordPage,
+  GoogleCallback,
 } from './pages/auth';
 import DashboardOverview from './pages/dashboard/Overview';
 import DashboardRequests from './pages/dashboard/Requests';
@@ -39,6 +40,7 @@ const router = createBrowserRouter(
         <Route path="verify-email" element={<EmailVerificationPage />} />
         <Route path="forgot-password" element={<ForgotPasswordPage />} />
         <Route path="reset-password" element={<ResetPasswordPage />} />
+        <Route path="google/callback" element={<GoogleCallback />} />
       </Route>
 
       {/* Customer Dashboard Routes */}

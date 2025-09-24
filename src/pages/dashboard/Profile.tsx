@@ -2,7 +2,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { APP_CONFIG } from '@/config/app';
 import {
   User,
   Mail,
@@ -14,32 +13,99 @@ import {
   X,
 } from 'lucide-react';
 import { useState } from 'react';
-
-const mockProfile = {
-  firstName: 'John',
-  lastName: 'Doe',
-  email: 'john.doe@example.com',
-  phone: '+237 123 456 789',
-  address: '123 Main Street, Douala, Cameroon',
-  dateOfBirth: '1990-05-15',
-  joinDate: '2023-01-15',
-  totalPickups: 45,
-  totalSavings: APP_CONFIG.currency.format(67500),
-};
+import { useAuthQueries } from '@/hooks/useAuthQueries';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function DashboardProfile() {
   const [isEditing, setIsEditing] = useState(false);
-  const [profile, setProfile] = useState(mockProfile);
+  const { profile } = useAuthQueries();
+
+  // Parse user data for form fields
+  const userData = profile.data;
+  const [formData, setFormData] = useState({
+    firstName: userData?.name?.split(' ')[0] || '',
+    lastName: userData?.name?.split(' ').slice(1).join(' ') || '',
+    email: userData?.email || '',
+    phone: userData?.phone || '',
+    address: userData?.address || '',
+  });
 
   const handleSave = () => {
-    // TODO: Implement save logic
+    // TODO: Implement save logic with API call
     setIsEditing(false);
   };
 
   const handleCancel = () => {
-    setProfile(mockProfile);
+    // Reset form data to original values
+    setFormData({
+      firstName: userData?.name?.split(' ')[0] || '',
+      lastName: userData?.name?.split(' ').slice(1).join(' ') || '',
+      email: userData?.email || '',
+      phone: userData?.phone || '',
+      address: userData?.address || '',
+    });
     setIsEditing(false);
   };
+
+  // Show loading state while profile is being fetched
+  if (profile.isLoading) {
+    return (
+      <div className="space-y-6">
+        <div className="flex justify-between items-center">
+          <div>
+            <Skeleton className="h-8 w-32" />
+            <Skeleton className="h-4 w-64 mt-2" />
+          </div>
+          <Skeleton className="h-10 w-24" />
+        </div>
+        <div className="grid gap-6 md:grid-cols-3">
+          <div className="md:col-span-2">
+            <Card>
+              <CardHeader>
+                <Skeleton className="h-6 w-40" />
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid gap-4 md:grid-cols-2">
+                  <Skeleton className="h-10 w-full" />
+                  <Skeleton className="h-10 w-full" />
+                </div>
+                <Skeleton className="h-10 w-full" />
+                <Skeleton className="h-10 w-full" />
+                <Skeleton className="h-10 w-full" />
+                <Skeleton className="h-10 w-full" />
+              </CardContent>
+            </Card>
+          </div>
+          <div className="space-y-6">
+            <Card>
+              <CardHeader>
+                <Skeleton className="h-6 w-32" />
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <Skeleton className="h-16 w-full" />
+                <Skeleton className="h-16 w-full" />
+                <Skeleton className="h-16 w-full" />
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Show error state if profile fetch failed
+  if (profile.error) {
+    return (
+      <div className="space-y-6">
+        <div>
+          <h1 className="text-3xl font-bold text-brand-primary">Profile</h1>
+          <p className="text-muted-foreground mt-2">
+            Failed to load profile data. Please try again.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -87,9 +153,9 @@ export default function DashboardProfile() {
                   <Label htmlFor="firstName">First Name</Label>
                   <Input
                     id="firstName"
-                    value={profile.firstName}
+                    value={formData.firstName}
                     onChange={e =>
-                      setProfile({ ...profile, firstName: e.target.value })
+                      setFormData({ ...formData, firstName: e.target.value })
                     }
                     disabled={!isEditing}
                   />
@@ -98,9 +164,9 @@ export default function DashboardProfile() {
                   <Label htmlFor="lastName">Last Name</Label>
                   <Input
                     id="lastName"
-                    value={profile.lastName}
+                    value={formData.lastName}
                     onChange={e =>
-                      setProfile({ ...profile, lastName: e.target.value })
+                      setFormData({ ...formData, lastName: e.target.value })
                     }
                     disabled={!isEditing}
                   />
@@ -112,9 +178,9 @@ export default function DashboardProfile() {
                 <Input
                   id="email"
                   type="email"
-                  value={profile.email}
+                  value={formData.email}
                   onChange={e =>
-                    setProfile({ ...profile, email: e.target.value })
+                    setFormData({ ...formData, email: e.target.value })
                   }
                   disabled={!isEditing}
                 />
@@ -124,9 +190,9 @@ export default function DashboardProfile() {
                 <Label htmlFor="phone">Phone Number</Label>
                 <Input
                   id="phone"
-                  value={profile.phone}
+                  value={formData.phone}
                   onChange={e =>
-                    setProfile({ ...profile, phone: e.target.value })
+                    setFormData({ ...formData, phone: e.target.value })
                   }
                   disabled={!isEditing}
                 />
@@ -136,22 +202,9 @@ export default function DashboardProfile() {
                 <Label htmlFor="address">Address</Label>
                 <Input
                   id="address"
-                  value={profile.address}
+                  value={formData.address}
                   onChange={e =>
-                    setProfile({ ...profile, address: e.target.value })
-                  }
-                  disabled={!isEditing}
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="dateOfBirth">Date of Birth</Label>
-                <Input
-                  id="dateOfBirth"
-                  type="date"
-                  value={profile.dateOfBirth}
-                  onChange={e =>
-                    setProfile({ ...profile, dateOfBirth: e.target.value })
+                    setFormData({ ...formData, address: e.target.value })
                   }
                   disabled={!isEditing}
                 />
@@ -174,7 +227,9 @@ export default function DashboardProfile() {
                 <div>
                   <div className="font-medium">Member Since</div>
                   <div className="text-sm text-muted-foreground">
-                    {profile.joinDate}
+                    {userData?.created_at
+                      ? new Date(userData.created_at).toLocaleDateString()
+                      : 'N/A'}
                   </div>
                 </div>
               </div>
@@ -184,21 +239,21 @@ export default function DashboardProfile() {
                   <User className="h-5 w-5 text-brand-primary" />
                 </div>
                 <div>
-                  <div className="font-medium">Total Pickups</div>
-                  <div className="text-sm text-muted-foreground">
-                    {profile.totalPickups} completed
+                  <div className="font-medium">Account Type</div>
+                  <div className="text-sm text-muted-foreground capitalize">
+                    {userData?.role || 'Customer'}
                   </div>
                 </div>
               </div>
 
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                  <MapPin className="h-5 w-5 text-green-600" />
+                  <Mail className="h-5 w-5 text-green-600" />
                 </div>
                 <div>
-                  <div className="font-medium">Total Savings</div>
+                  <div className="font-medium">Email Status</div>
                   <div className="text-sm text-muted-foreground">
-                    {profile.totalSavings}
+                    {userData?.email ? 'Verified' : 'Unverified'}
                   </div>
                 </div>
               </div>

@@ -10,8 +10,10 @@ import {
   Plus,
   Clock,
 } from 'lucide-react';
+import { useAuthQueries } from '@/hooks/useAuthQueries';
 
 export default function DashboardOverview() {
+  const { profile } = useAuthQueries();
   return (
     <div className="space-y-6">
       <div>
@@ -19,7 +21,9 @@ export default function DashboardOverview() {
           Dashboard Overview
         </h1>
         <p className="text-muted-foreground mt-2">
-          Welcome back! Here's what's happening with your waste management.
+          Welcome back
+          {profile.data?.name ? `, ${profile.data.name.split(' ')[0]}` : ''}!
+          Here's what's happening with your waste management.
         </p>
       </div>
 

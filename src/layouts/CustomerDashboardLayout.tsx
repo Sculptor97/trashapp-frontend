@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/sidebar';
 import { CustomerDashboardHeader } from '@/components/layouts/CustomerDashboardHeader';
 import { Home, Package, CreditCard, User, LogOut, Recycle } from 'lucide-react';
+import { useAuthMutations } from '@/hooks/useAuthMutations';
 
 const navigationItems = [
   {
@@ -42,10 +43,16 @@ const navigationItems = [
 function CustomerSidebar() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { logout } = useAuthMutations();
 
-  const handleLogout = () => {
-    // TODO: Implement logout logic
-    navigate('/auth/login');
+  const handleLogout = async () => {
+    try {
+      await logout.mutateAsync();
+      navigate('/auth/login');
+    } catch (error) {
+      // Error is handled by the mutation
+      console.error('Logout failed:', error);
+    }
   };
 
   return (

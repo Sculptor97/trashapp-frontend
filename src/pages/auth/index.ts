@@ -3,3 +3,4 @@ export { RegisterPage } from './RegisterPage';
 export { EmailVerificationPage } from './EmailVerificationPage';
 export { ForgotPasswordPage } from './ForgotPasswordPage';
 export { ResetPasswordPage } from './ResetPasswordPage';
+export { GoogleCallback } from './GoogleCallback';

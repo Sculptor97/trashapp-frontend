@@ -19,7 +19,6 @@ const defaultConfig: AxiosRequestConfig = {
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',
-    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
   },
 };
 
@@ -29,9 +28,16 @@ const axiosClient: AxiosInstance = axios.create(defaultConfig);
 // Request interceptor
 axiosClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
+    // Add Authorization header if token exists
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
     // Log request in development
     if (import.meta.env.VITE_DEV) {
       console.log(`API Request: ${config.method?.toUpperCase()} ${config.url}`);
+      console.log('Authorization header:', config.headers.Authorization);
     }
     return config;
   },
@@ -50,7 +56,7 @@ axiosClient.interceptors.response.use(
     }
     return response;
   },
-  (error: AxiosError) => {
+  async (error: AxiosError) => {
     // Handle different types of errors
     if (error.response) {
       // Server responded with error status
@@ -60,6 +66,41 @@ axiosClient.interceptors.response.use(
         url: error.config?.url,
         data: error.response.data,
       });
+
+      // Handle 401 Unauthorized - token expired or invalid
+      if (error.response.status === 401) {
+        const refreshToken = localStorage.getItem('refreshToken');
+        if (refreshToken && error.config && !(error.config as any)._retry) {
+          (error.config as any)._retry = true;
+
+          try {
+            // Try to refresh the token
+            const response = await axiosClient.post('/auth/token/refresh', {
+              refresh_token: refreshToken,
+            });
+
+            const newToken = response.data.data.access_token;
+            localStorage.setItem('accessToken', newToken);
+
+            // Retry the original request with new token
+            if (error.config) {
+              error.config.headers.Authorization = `Bearer ${newToken}`;
+              return axiosClient(error.config);
+            }
+          } catch (refreshError) {
+            // Refresh failed, redirect to login
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('refreshToken');
+            window.location.href = '/auth/login';
+            return Promise.reject(refreshError);
+          }
+        } else {
+          // No refresh token or already retried, redirect to login
+          localStorage.removeItem('accessToken');
+          localStorage.removeItem('refreshToken');
+          window.location.href = '/auth/login';
+        }
+      }
     } else if (error.request) {
       // Request was made but no response received
       console.error('Network Error:', error.message);

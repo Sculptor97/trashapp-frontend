@@ -30,6 +30,11 @@ export const useGoogleAuth = () => {
    * Should be called on the callback page
    */
   const handleCallback = useCallback(async () => {
+    // Prevent multiple calls if already in progress
+    if (handleGoogleCallback.isPending) {
+      return;
+    }
+
     try {
       await handleGoogleCallback.mutateAsync();
     } catch {

@@ -243,9 +243,8 @@ export class AuthService {
         method: 'GET',
         url: endpoints.auth.google.init,
       });
-      console.log(response.data.url);
       // Redirect to the Google OAuth URL returned by backend
-      //window.location.href = response.data.url;
+      window.location.href = response.data.url;
     } catch (error) {
       console.error('Failed to initiate Google OAuth:', error);
       throw new Error(
@@ -275,6 +274,10 @@ export class AuthService {
       if (!code) {
         throw new Error('No authorization code received from Google OAuth');
       }
+
+      // Clean up the URL to prevent re-processing
+      const newUrl = window.location.pathname;
+      window.history.replaceState({}, document.title, newUrl);
 
       // Send the authorization code to backend for token exchange
       const response = await ApiRequest<AuthResponse>({
