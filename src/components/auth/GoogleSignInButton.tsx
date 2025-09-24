@@ -8,10 +8,6 @@ interface GoogleSignInButtonProps {
    */
   text?: string;
   /**
-   * Whether this is for account linking (true) or login (false)
-   */
-  isLinking?: boolean;
-  /**
    * Additional CSS classes
    */
   className?: string;
@@ -31,26 +27,17 @@ interface GoogleSignInButtonProps {
  */
 export const GoogleSignInButton = ({
   text,
-  isLinking = false,
   className = '',
   disabled = false,
   size = 'md',
 }: GoogleSignInButtonProps) => {
   const [isLoading, setIsLoading] = useState(false);
-  const {
-    loginWithGoogle,
-    linkGoogleAccount,
-    isLinking: isLinkingAccount,
-  } = useGoogleAuth();
+  const { loginWithGoogle, isHandlingCallback } = useGoogleAuth();
 
   const handleClick = async () => {
     setIsLoading(true);
     try {
-      if (isLinking) {
-        await linkGoogleAccount();
-      } else {
-        await loginWithGoogle();
-      }
+      await loginWithGoogle();
     } catch (error) {
       // Error is handled by the hook
       console.error('Google auth error:', error);
@@ -61,9 +48,8 @@ export const GoogleSignInButton = ({
     }
   };
 
-  const buttonText =
-    text || (isLinking ? 'Link Google Account' : 'Sign in with Google');
-  const isButtonLoading = isLoading || isLinkingAccount;
+  const buttonText = text || 'Sign in with Google';
+  const isButtonLoading = isLoading || isHandlingCallback;
 
   // Map to shadcn button sizes
   const buttonSize: 'sm' | 'default' | 'lg' =

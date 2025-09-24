@@ -98,18 +98,6 @@ export const useAuthMutations = () => {
     },
   });
 
-  const unlinkGoogleAccount = useMutation({
-    mutationFn: () => authService.unlinkGoogleAccount(),
-    onSuccess: () => {
-      // Invalidate and refetch profile data
-      queryClient.invalidateQueries({ queryKey: authKeys.profile() });
-      ErrorHandler.showSuccessToast('Google account unlinked successfully!');
-    },
-    onError: error => {
-      ErrorHandler.handleAndShowError(error, 'Failed to unlink Google account');
-    },
-  });
-
   return {
     login,
     register,
@@ -122,6 +110,5 @@ export const useAuthMutations = () => {
     changePassword,
     // Google OAuth mutations
     handleGoogleCallback,
-    unlinkGoogleAccount,
   };
 };

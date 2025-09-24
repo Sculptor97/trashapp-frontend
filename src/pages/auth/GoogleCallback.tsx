@@ -13,6 +13,7 @@ export const GoogleCallback = () => {
   useEffect(() => {
     const processCallback = async () => {
       try {
+        // Handle OAuth callback - extract code and exchange for tokens
         await handleCallback();
         // Redirect to dashboard or home page after successful authentication
         navigate('/dashboard', { replace: true });

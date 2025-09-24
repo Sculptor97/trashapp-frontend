@@ -5,10 +5,10 @@ import { ErrorHandler } from '../lib/utils/errorHandler';
 
 /**
  * Custom hook for Google OAuth authentication
- * Provides simple methods for Google Sign-In button and account management
+ * Provides simple methods for Google Sign-In
  */
 export const useGoogleAuth = () => {
-  const { handleGoogleCallback, unlinkGoogleAccount } = useAuthMutations();
+  const { handleGoogleCallback } = useAuthMutations();
 
   /**
    * Initiate Google OAuth login flow
@@ -26,32 +26,6 @@ export const useGoogleAuth = () => {
   }, []);
 
   /**
-   * Link Google account to existing user
-   * Redirects user to Google OAuth for account linking
-   */
-  const linkGoogleAccount = useCallback(async () => {
-    try {
-      await authService.linkGoogleAccount();
-    } catch (error) {
-      ErrorHandler.handleAndShowError(
-        error,
-        'Failed to start Google account linking'
-      );
-    }
-  }, []);
-
-  /**
-   * Unlink Google account from user
-   */
-  const unlinkGoogle = useCallback(async () => {
-    try {
-      await unlinkGoogleAccount.mutateAsync();
-    } catch {
-      // Error is already handled by the mutation
-    }
-  }, [unlinkGoogleAccount]);
-
-  /**
    * Handle OAuth callback after user returns from Google
    * Should be called on the callback page
    */
@@ -66,15 +40,12 @@ export const useGoogleAuth = () => {
   return {
     // Authentication methods
     loginWithGoogle,
-    linkGoogleAccount,
-    unlinkGoogle,
     handleCallback,
 
     // Loading states
-    isLinking: unlinkGoogleAccount.isPending,
     isHandlingCallback: handleGoogleCallback.isPending,
 
     // Error states
-    error: unlinkGoogleAccount.error || handleGoogleCallback.error,
+    error: handleGoogleCallback.error,
   };
 };

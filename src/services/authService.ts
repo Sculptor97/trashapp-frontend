@@ -242,7 +242,7 @@ export class AuthService {
       const response = await ApiRequest<{ url: string }>({
         method: 'GET',
         url: endpoints.auth.google.init,
-        data: { link: 'false' },
+
       });
 
       // Redirect to the Google OAuth URL returned by backend
@@ -260,16 +260,33 @@ export class AuthService {
   /**
    * Handle Google OAuth callback
    * This method should be called after the user returns from Google OAuth
-   * The backend will handle the OAuth flow and redirect back with tokens
+   * Extracts the authorization code and sends it to backend for token exchange
    */
   async handleGoogleCallback(): Promise<AuthResponse> {
     try {
+      // Get the authorization code from URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const code = urlParams.get('code');
+      const error = urlParams.get('error');
+
+      if (error) {
+        throw new Error(`Google OAuth error: ${error}`);
+      }
+
+      if (!code) {
+        throw new Error('No authorization code received from Google OAuth');
+      }
+
+      // Send the authorization code to backend for token exchange
       const response = await ApiRequest<AuthResponse>({
-        method: 'GET',
-        url: endpoints.auth.google.callback,
+        method: 'POST',
+        url: endpoints.auth.google.exchange,
+        data: {
+          code,
+        },
       });
 
-      // Save tokens to localStorage if they exist
+      // Save tokens to localStorage
       if (response.data.access_token) {
         this.tokenManager.setToken(response.data.access_token);
       }
@@ -282,49 +299,6 @@ export class AuthService {
       console.error('Google OAuth callback failed:', error);
       throw new Error(
         error instanceof Error ? error.message : 'Google OAuth callback failed'
-      );
-    }
-  }
-
-  /**
-   * Link Google account to existing user
-   * This method initiates the Google OAuth flow for account linking
-   */
-  async linkGoogleAccount(): Promise<void> {
-    try {
-      const response = await ApiRequest<{ url: string }>({
-        method: 'GET',
-        url: endpoints.auth.google.init,
-        data: { link: 'true' },
-      });
-
-      // Redirect to the Google OAuth URL returned by backend
-      window.location.href = response.data.url;
-    } catch (error) {
-      console.error('Failed to initiate Google account linking:', error);
-      throw new Error(
-        error instanceof Error
-          ? error.message
-          : 'Failed to initiate Google account linking'
-      );
-    }
-  }
-
-  /**
-   * Unlink Google account from user
-   */
-  async unlinkGoogleAccount(): Promise<void> {
-    try {
-      await ApiRequest({
-        method: 'DELETE',
-        url: endpoints.auth.google.exchange,
-      });
-    } catch (error) {
-      console.error('Failed to unlink Google account:', error);
-      throw new Error(
-        error instanceof Error
-          ? error.message
-          : 'Failed to unlink Google account'
       );
     }
   }
