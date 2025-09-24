@@ -2,18 +2,16 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { 
-  Truck, 
-  Search, 
+import {
+  Truck,
+  Search,
   Filter,
   MoreHorizontal,
   Edit,
-  Trash2,
   Eye,
   UserPlus,
   MapPin,
-  Clock,
-  Star
+  Star,
 } from 'lucide-react';
 
 const mockDrivers = [
@@ -28,7 +26,7 @@ const mockDrivers = [
     rating: 4.8,
     totalPickups: 156,
     todayPickups: 8,
-    lastActivity: '2024-01-15 14:30'
+    lastActivity: '2024-01-15 14:30',
   },
   {
     id: 'DRV-002',
@@ -41,7 +39,7 @@ const mockDrivers = [
     rating: 4.9,
     totalPickups: 203,
     todayPickups: 12,
-    lastActivity: '2024-01-15 14:25'
+    lastActivity: '2024-01-15 14:25',
   },
   {
     id: 'DRV-003',
@@ -54,7 +52,7 @@ const mockDrivers = [
     rating: 4.6,
     totalPickups: 98,
     todayPickups: 0,
-    lastActivity: '2024-01-15 12:00'
+    lastActivity: '2024-01-15 12:00',
   },
   {
     id: 'DRV-004',
@@ -67,7 +65,7 @@ const mockDrivers = [
     rating: 4.7,
     totalPickups: 134,
     todayPickups: 6,
-    lastActivity: '2024-01-15 14:20'
+    lastActivity: '2024-01-15 14:20',
   },
   {
     id: 'DRV-005',
@@ -80,8 +78,8 @@ const mockDrivers = [
     rating: 4.5,
     totalPickups: 87,
     todayPickups: 4,
-    lastActivity: '2024-01-15 13:45'
-  }
+    lastActivity: '2024-01-15 13:45',
+  },
 ];
 
 const getStatusColor = (status: string) => {
@@ -104,7 +102,9 @@ export default function AdminDrivers() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-brand-primary">Manage Drivers</h1>
+          <h1 className="text-3xl font-bold text-brand-primary">
+            Manage Drivers
+          </h1>
           <p className="text-muted-foreground mt-2">
             Monitor and manage your driver fleet and their performance.
           </p>
@@ -124,9 +124,7 @@ export default function AdminDrivers() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-brand-primary">45</div>
-            <p className="text-xs text-muted-foreground">
-              +3 this month
-            </p>
+            <p className="text-xs text-muted-foreground">+3 this month</p>
           </CardContent>
         </Card>
 
@@ -145,14 +143,14 @@ export default function AdminDrivers() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Today's Pickups</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Today's Pickups
+            </CardTitle>
             <Truck className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-brand-secondary">127</div>
-            <p className="text-xs text-muted-foreground">
-              +15% from yesterday
-            </p>
+            <p className="text-xs text-muted-foreground">+15% from yesterday</p>
           </CardContent>
         </Card>
 
@@ -198,8 +196,11 @@ export default function AdminDrivers() {
 
           {/* Drivers Table */}
           <div className="space-y-4">
-            {mockDrivers.map((driver) => (
-              <div key={driver.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors">
+            {mockDrivers.map(driver => (
+              <div
+                key={driver.id}
+                className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors"
+              >
                 <div className="flex items-center space-x-4">
                   <div className="w-10 h-10 bg-brand-light rounded-full flex items-center justify-center">
                     <Truck className="h-5 w-5 text-brand-primary" />
@@ -254,11 +255,21 @@ export default function AdminDrivers() {
               Showing 1-5 of 45 drivers
             </div>
             <div className="flex space-x-2">
-              <Button variant="outline" size="sm">Previous</Button>
-              <Button variant="outline" size="sm">1</Button>
-              <Button variant="outline" size="sm">2</Button>
-              <Button variant="outline" size="sm">3</Button>
-              <Button variant="outline" size="sm">Next</Button>
+              <Button variant="outline" size="sm">
+                Previous
+              </Button>
+              <Button variant="outline" size="sm">
+                1
+              </Button>
+              <Button variant="outline" size="sm">
+                2
+              </Button>
+              <Button variant="outline" size="sm">
+                3
+              </Button>
+              <Button variant="outline" size="sm">
+                Next
+              </Button>
             </div>
           </div>
         </CardContent>

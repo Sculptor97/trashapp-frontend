@@ -6,7 +6,7 @@ export function CustomerDashboardHeader() {
   return (
     <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
       <SidebarTrigger className="-ml-1" />
-      
+
       {/* Header Content */}
       <div className="flex flex-1 items-center justify-end">
         <div className="flex items-center gap-2">

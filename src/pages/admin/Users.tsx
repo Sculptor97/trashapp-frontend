@@ -2,15 +2,14 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { 
-  Users, 
-  Search, 
+import {
+  Users,
+  Search,
   Filter,
   MoreHorizontal,
   Edit,
-  Trash2,
   Eye,
-  UserPlus
+  UserPlus,
 } from 'lucide-react';
 
 const mockUsers = [
@@ -23,7 +22,7 @@ const mockUsers = [
     status: 'Active',
     joinDate: '2023-01-15',
     totalPickups: 45,
-    lastActivity: '2024-01-15'
+    lastActivity: '2024-01-15',
   },
   {
     id: 'USR-002',
@@ -34,7 +33,7 @@ const mockUsers = [
     status: 'Active',
     joinDate: '2023-03-22',
     totalPickups: 32,
-    lastActivity: '2024-01-14'
+    lastActivity: '2024-01-14',
   },
   {
     id: 'USR-003',
@@ -45,7 +44,7 @@ const mockUsers = [
     status: 'Inactive',
     joinDate: '2023-02-10',
     totalPickups: 18,
-    lastActivity: '2023-12-20'
+    lastActivity: '2023-12-20',
   },
   {
     id: 'USR-004',
@@ -56,7 +55,7 @@ const mockUsers = [
     status: 'Active',
     joinDate: '2023-05-08',
     totalPickups: 67,
-    lastActivity: '2024-01-15'
+    lastActivity: '2024-01-15',
   },
   {
     id: 'USR-005',
@@ -67,8 +66,8 @@ const mockUsers = [
     status: 'Suspended',
     joinDate: '2023-04-12',
     totalPickups: 12,
-    lastActivity: '2024-01-10'
-  }
+    lastActivity: '2024-01-10',
+  },
 ];
 
 const getStatusColor = (status: string) => {
@@ -89,7 +88,9 @@ export default function AdminUsers() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-brand-primary">Manage Users</h1>
+          <h1 className="text-3xl font-bold text-brand-primary">
+            Manage Users
+          </h1>
           <p className="text-muted-foreground mt-2">
             View and manage all registered users in the system.
           </p>
@@ -130,7 +131,9 @@ export default function AdminUsers() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">New This Month</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              New This Month
+            </CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -143,14 +146,14 @@ export default function AdminUsers() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Inactive Users</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Inactive Users
+            </CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-yellow-600">91</div>
-            <p className="text-xs text-muted-foreground">
-              7.3% of total users
-            </p>
+            <p className="text-xs text-muted-foreground">7.3% of total users</p>
           </CardContent>
         </Card>
       </div>
@@ -183,8 +186,11 @@ export default function AdminUsers() {
 
           {/* Users Table */}
           <div className="space-y-4">
-            {mockUsers.map((user) => (
-              <div key={user.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors">
+            {mockUsers.map(user => (
+              <div
+                key={user.id}
+                className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors"
+              >
                 <div className="flex items-center space-x-4">
                   <div className="w-10 h-10 bg-brand-light rounded-full flex items-center justify-center">
                     <Users className="h-5 w-5 text-brand-primary" />
@@ -233,11 +239,21 @@ export default function AdminUsers() {
               Showing 1-5 of 1,247 users
             </div>
             <div className="flex space-x-2">
-              <Button variant="outline" size="sm">Previous</Button>
-              <Button variant="outline" size="sm">1</Button>
-              <Button variant="outline" size="sm">2</Button>
-              <Button variant="outline" size="sm">3</Button>
-              <Button variant="outline" size="sm">Next</Button>
+              <Button variant="outline" size="sm">
+                Previous
+              </Button>
+              <Button variant="outline" size="sm">
+                1
+              </Button>
+              <Button variant="outline" size="sm">
+                2
+              </Button>
+              <Button variant="outline" size="sm">
+                3
+              </Button>
+              <Button variant="outline" size="sm">
+                Next
+              </Button>
             </div>
           </div>
         </CardContent>

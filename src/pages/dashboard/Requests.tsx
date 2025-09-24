@@ -2,14 +2,14 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { APP_CONFIG } from '@/config/app';
-import { 
-  Package, 
-  Calendar, 
-  MapPin, 
+import {
+  Package,
+  Calendar,
+  MapPin,
   Clock,
   Plus,
   Eye,
-  Edit
+  Edit,
 } from 'lucide-react';
 
 const mockRequests = [
@@ -21,7 +21,7 @@ const mockRequests = [
     status: 'Scheduled',
     address: '123 Main Street, Douala',
     weight: '15kg',
-    price: APP_CONFIG.currency.format(2500)
+    price: APP_CONFIG.currency.format(2500),
   },
   {
     id: 'REQ-002',
@@ -31,7 +31,7 @@ const mockRequests = [
     status: 'Completed',
     address: '456 Avenue, Yaoundé',
     weight: '8kg',
-    price: APP_CONFIG.currency.format(1800)
+    price: APP_CONFIG.currency.format(1800),
   },
   {
     id: 'REQ-003',
@@ -41,7 +41,7 @@ const mockRequests = [
     status: 'Completed',
     address: '789 Boulevard, Limbe',
     weight: '3kg',
-    price: APP_CONFIG.currency.format(3200)
+    price: APP_CONFIG.currency.format(3200),
   },
   {
     id: 'REQ-004',
@@ -51,8 +51,8 @@ const mockRequests = [
     status: 'Cancelled',
     address: '321 Street, Buea',
     weight: '12kg',
-    price: APP_CONFIG.currency.format(2100)
-  }
+    price: APP_CONFIG.currency.format(2100),
+  },
 ];
 
 const getStatusColor = (status: string) => {
@@ -75,7 +75,9 @@ export default function DashboardRequests() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-brand-primary">Pickup Requests</h1>
+          <h1 className="text-3xl font-bold text-brand-primary">
+            Pickup Requests
+          </h1>
           <p className="text-muted-foreground mt-2">
             Manage and track your waste pickup requests.
           </p>
@@ -90,14 +92,14 @@ export default function DashboardRequests() {
       <div className="grid gap-4 md:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Requests</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Total Requests
+            </CardTitle>
             <Package className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-brand-primary">12</div>
-            <p className="text-xs text-muted-foreground">
-              All time
-            </p>
+            <p className="text-xs text-muted-foreground">All time</p>
           </CardContent>
         </Card>
 
@@ -108,9 +110,7 @@ export default function DashboardRequests() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-blue-600">3</div>
-            <p className="text-xs text-muted-foreground">
-              Upcoming pickups
-            </p>
+            <p className="text-xs text-muted-foreground">Upcoming pickups</p>
           </CardContent>
         </Card>
 
@@ -121,9 +121,7 @@ export default function DashboardRequests() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-green-600">8</div>
-            <p className="text-xs text-muted-foreground">
-              This month
-            </p>
+            <p className="text-xs text-muted-foreground">This month</p>
           </CardContent>
         </Card>
 
@@ -133,10 +131,10 @@ export default function DashboardRequests() {
             <Package className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-brand-secondary">{APP_CONFIG.currency.format(9600)}</div>
-            <p className="text-xs text-muted-foreground">
-              This month
-            </p>
+            <div className="text-2xl font-bold text-brand-secondary">
+              {APP_CONFIG.currency.format(9600)}
+            </div>
+            <p className="text-xs text-muted-foreground">This month</p>
           </CardContent>
         </Card>
       </div>
@@ -148,8 +146,11 @@ export default function DashboardRequests() {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {mockRequests.map((request) => (
-              <div key={request.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors">
+            {mockRequests.map(request => (
+              <div
+                key={request.id}
+                className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors"
+              >
                 <div className="flex items-center space-x-4">
                   <div className="w-10 h-10 bg-brand-light rounded-full flex items-center justify-center">
                     <Package className="h-5 w-5 text-brand-primary" />
@@ -180,7 +181,9 @@ export default function DashboardRequests() {
                 <div className="flex items-center space-x-4">
                   <div className="text-right">
                     <div className="font-medium">{request.price}</div>
-                    <div className="text-sm text-muted-foreground">{request.weight}</div>
+                    <div className="text-sm text-muted-foreground">
+                      {request.weight}
+                    </div>
                   </div>
                   <div className="flex space-x-2">
                     <Button variant="outline" size="sm">

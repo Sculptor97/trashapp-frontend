@@ -3,15 +3,15 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { APP_CONFIG } from '@/config/app';
-import { 
-  User, 
-  Mail, 
-  Phone, 
-  MapPin, 
+import {
+  User,
+  Mail,
+  Phone,
+  MapPin,
   Calendar,
   Edit,
   Save,
-  X
+  X,
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -24,7 +24,7 @@ const mockProfile = {
   dateOfBirth: '1990-05-15',
   joinDate: '2023-01-15',
   totalPickups: 45,
-  totalSavings: APP_CONFIG.currency.format(67500)
+  totalSavings: APP_CONFIG.currency.format(67500),
 };
 
 export default function DashboardProfile() {
@@ -53,7 +53,10 @@ export default function DashboardProfile() {
         <div className="flex space-x-2">
           {isEditing ? (
             <>
-              <Button onClick={handleSave} className="bg-brand-primary hover:bg-brand-secondary">
+              <Button
+                onClick={handleSave}
+                className="bg-brand-primary hover:bg-brand-secondary"
+              >
                 <Save className="h-4 w-4 mr-2" />
                 Save Changes
               </Button>
@@ -85,7 +88,9 @@ export default function DashboardProfile() {
                   <Input
                     id="firstName"
                     value={profile.firstName}
-                    onChange={(e) => setProfile({...profile, firstName: e.target.value})}
+                    onChange={e =>
+                      setProfile({ ...profile, firstName: e.target.value })
+                    }
                     disabled={!isEditing}
                   />
                 </div>
@@ -94,7 +99,9 @@ export default function DashboardProfile() {
                   <Input
                     id="lastName"
                     value={profile.lastName}
-                    onChange={(e) => setProfile({...profile, lastName: e.target.value})}
+                    onChange={e =>
+                      setProfile({ ...profile, lastName: e.target.value })
+                    }
                     disabled={!isEditing}
                   />
                 </div>
@@ -106,7 +113,9 @@ export default function DashboardProfile() {
                   id="email"
                   type="email"
                   value={profile.email}
-                  onChange={(e) => setProfile({...profile, email: e.target.value})}
+                  onChange={e =>
+                    setProfile({ ...profile, email: e.target.value })
+                  }
                   disabled={!isEditing}
                 />
               </div>
@@ -116,7 +125,9 @@ export default function DashboardProfile() {
                 <Input
                   id="phone"
                   value={profile.phone}
-                  onChange={(e) => setProfile({...profile, phone: e.target.value})}
+                  onChange={e =>
+                    setProfile({ ...profile, phone: e.target.value })
+                  }
                   disabled={!isEditing}
                 />
               </div>
@@ -126,7 +137,9 @@ export default function DashboardProfile() {
                 <Input
                   id="address"
                   value={profile.address}
-                  onChange={(e) => setProfile({...profile, address: e.target.value})}
+                  onChange={e =>
+                    setProfile({ ...profile, address: e.target.value })
+                  }
                   disabled={!isEditing}
                 />
               </div>
@@ -137,7 +150,9 @@ export default function DashboardProfile() {
                   id="dateOfBirth"
                   type="date"
                   value={profile.dateOfBirth}
-                  onChange={(e) => setProfile({...profile, dateOfBirth: e.target.value})}
+                  onChange={e =>
+                    setProfile({ ...profile, dateOfBirth: e.target.value })
+                  }
                   disabled={!isEditing}
                 />
               </div>
@@ -158,7 +173,9 @@ export default function DashboardProfile() {
                 </div>
                 <div>
                   <div className="font-medium">Member Since</div>
-                  <div className="text-sm text-muted-foreground">{profile.joinDate}</div>
+                  <div className="text-sm text-muted-foreground">
+                    {profile.joinDate}
+                  </div>
                 </div>
               </div>
 
@@ -168,7 +185,9 @@ export default function DashboardProfile() {
                 </div>
                 <div>
                   <div className="font-medium">Total Pickups</div>
-                  <div className="text-sm text-muted-foreground">{profile.totalPickups} completed</div>
+                  <div className="text-sm text-muted-foreground">
+                    {profile.totalPickups} completed
+                  </div>
                 </div>
               </div>
 
@@ -178,7 +197,9 @@ export default function DashboardProfile() {
                 </div>
                 <div>
                   <div className="font-medium">Total Savings</div>
-                  <div className="text-sm text-muted-foreground">{profile.totalSavings}</div>
+                  <div className="text-sm text-muted-foreground">
+                    {profile.totalSavings}
+                  </div>
                 </div>
               </div>
             </CardContent>

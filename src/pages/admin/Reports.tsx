@@ -1,17 +1,15 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { APP_CONFIG } from '@/config/app';
-import { 
-  BarChart3, 
-  TrendingUp, 
+import {
+  TrendingUp,
   TrendingDown,
   Download,
   Calendar,
   Users,
   Truck,
   Package,
-  DollarSign
+  DollarSign,
 } from 'lucide-react';
 
 const mockMetrics = [
@@ -20,45 +18,95 @@ const mockMetrics = [
     value: APP_CONFIG.currency.format(2400000),
     change: '+18%',
     trend: 'up',
-    period: 'This month'
+    period: 'This month',
   },
   {
     title: 'Active Users',
     value: '1,156',
     change: '+12%',
     trend: 'up',
-    period: 'This month'
+    period: 'This month',
   },
   {
     title: 'Pickups Completed',
     value: '3,247',
     change: '+25%',
     trend: 'up',
-    period: 'This month'
+    period: 'This month',
   },
   {
     title: 'Driver Efficiency',
     value: '94%',
     change: '+3%',
     trend: 'up',
-    period: 'This month'
-  }
+    period: 'This month',
+  },
 ];
 
 const mockTopDrivers = [
-  { name: 'Sarah Johnson', pickups: 203, rating: 4.9, revenue: APP_CONFIG.currency.format(45600) },
-  { name: 'John Smith', pickups: 156, rating: 4.8, revenue: APP_CONFIG.currency.format(38400) },
-  { name: 'Emma Brown', pickups: 134, rating: 4.7, revenue: APP_CONFIG.currency.format(32200) },
-  { name: 'Mike Wilson', pickups: 98, rating: 4.6, revenue: APP_CONFIG.currency.format(23500) },
-  { name: 'David Lee', pickups: 87, rating: 4.5, revenue: APP_CONFIG.currency.format(20900) }
+  {
+    name: 'Sarah Johnson',
+    pickups: 203,
+    rating: 4.9,
+    revenue: APP_CONFIG.currency.format(45600),
+  },
+  {
+    name: 'John Smith',
+    pickups: 156,
+    rating: 4.8,
+    revenue: APP_CONFIG.currency.format(38400),
+  },
+  {
+    name: 'Emma Brown',
+    pickups: 134,
+    rating: 4.7,
+    revenue: APP_CONFIG.currency.format(32200),
+  },
+  {
+    name: 'Mike Wilson',
+    pickups: 98,
+    rating: 4.6,
+    revenue: APP_CONFIG.currency.format(23500),
+  },
+  {
+    name: 'David Lee',
+    pickups: 87,
+    rating: 4.5,
+    revenue: APP_CONFIG.currency.format(20900),
+  },
 ];
 
 const mockTopZones = [
-  { zone: 'Douala Zone A', pickups: 456, revenue: APP_CONFIG.currency.format(89200), growth: '+15%' },
-  { zone: 'Yaoundé Zone B', pickups: 389, revenue: APP_CONFIG.currency.format(76100), growth: '+22%' },
-  { zone: 'Limbe Zone C', pickups: 234, revenue: APP_CONFIG.currency.format(45800), growth: '+8%' },
-  { zone: 'Buea Zone D', pickups: 198, revenue: APP_CONFIG.currency.format(38700), growth: '+12%' },
-  { zone: 'Douala Zone E', pickups: 156, revenue: APP_CONFIG.currency.format(30500), growth: '+5%' }
+  {
+    zone: 'Douala Zone A',
+    pickups: 456,
+    revenue: APP_CONFIG.currency.format(89200),
+    growth: '+15%',
+  },
+  {
+    zone: 'Yaoundé Zone B',
+    pickups: 389,
+    revenue: APP_CONFIG.currency.format(76100),
+    growth: '+22%',
+  },
+  {
+    zone: 'Limbe Zone C',
+    pickups: 234,
+    revenue: APP_CONFIG.currency.format(45800),
+    growth: '+8%',
+  },
+  {
+    zone: 'Buea Zone D',
+    pickups: 198,
+    revenue: APP_CONFIG.currency.format(38700),
+    growth: '+12%',
+  },
+  {
+    zone: 'Douala Zone E',
+    pickups: 156,
+    revenue: APP_CONFIG.currency.format(30500),
+    growth: '+5%',
+  },
 ];
 
 export default function AdminReports() {
@@ -66,7 +114,9 @@ export default function AdminReports() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-brand-primary">Reports & Analytics</h1>
+          <h1 className="text-3xl font-bold text-brand-primary">
+            Reports & Analytics
+          </h1>
           <p className="text-muted-foreground mt-2">
             Comprehensive insights into your waste management operations.
           </p>
@@ -88,7 +138,9 @@ export default function AdminReports() {
         {mockMetrics.map((metric, index) => (
           <Card key={index}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">{metric.title}</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                {metric.title}
+              </CardTitle>
               {metric.trend === 'up' ? (
                 <TrendingUp className="h-4 w-4 text-green-600" />
               ) : (
@@ -96,12 +148,18 @@ export default function AdminReports() {
               )}
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-brand-primary">{metric.value}</div>
+              <div className="text-2xl font-bold text-brand-primary">
+                {metric.value}
+              </div>
               <div className="flex items-center space-x-1">
-                <span className={`text-xs ${metric.trend === 'up' ? 'text-green-600' : 'text-red-600'}`}>
+                <span
+                  className={`text-xs ${metric.trend === 'up' ? 'text-green-600' : 'text-red-600'}`}
+                >
                   {metric.change}
                 </span>
-                <span className="text-xs text-muted-foreground">{metric.period}</span>
+                <span className="text-xs text-muted-foreground">
+                  {metric.period}
+                </span>
               </div>
             </CardContent>
           </Card>
@@ -186,31 +244,43 @@ export default function AdminReports() {
                 <span className="text-sm font-medium">45%</span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-2">
-                <div className="bg-brand-primary h-2 rounded-full" style={{width: '45%'}}></div>
+                <div
+                  className="bg-brand-primary h-2 rounded-full"
+                  style={{ width: '45%' }}
+                ></div>
               </div>
-              
+
               <div className="flex justify-between items-center">
                 <span className="text-sm">Recyclable Materials</span>
                 <span className="text-sm font-medium">30%</span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-2">
-                <div className="bg-brand-secondary h-2 rounded-full" style={{width: '30%'}}></div>
+                <div
+                  className="bg-brand-secondary h-2 rounded-full"
+                  style={{ width: '30%' }}
+                ></div>
               </div>
-              
+
               <div className="flex justify-between items-center">
                 <span className="text-sm">Electronic Waste</span>
                 <span className="text-sm font-medium">15%</span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-2">
-                <div className="bg-brand-accent h-2 rounded-full" style={{width: '15%'}}></div>
+                <div
+                  className="bg-brand-accent h-2 rounded-full"
+                  style={{ width: '15%' }}
+                ></div>
               </div>
-              
+
               <div className="flex justify-between items-center">
                 <span className="text-sm">Mixed Waste</span>
                 <span className="text-sm font-medium">10%</span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-2">
-                <div className="bg-gray-500 h-2 rounded-full" style={{width: '10%'}}></div>
+                <div
+                  className="bg-gray-500 h-2 rounded-full"
+                  style={{ width: '10%' }}
+                ></div>
               </div>
             </div>
           </CardContent>
@@ -229,7 +299,7 @@ export default function AdminReports() {
                   <span className="text-sm text-green-600">+18%</span>
                 </div>
               </div>
-              
+
               <div className="flex justify-between items-center">
                 <span className="text-sm">User Growth</span>
                 <div className="flex items-center space-x-1">
@@ -237,7 +307,7 @@ export default function AdminReports() {
                   <span className="text-sm text-green-600">+12%</span>
                 </div>
               </div>
-              
+
               <div className="flex justify-between items-center">
                 <span className="text-sm">Pickup Efficiency</span>
                 <div className="flex items-center space-x-1">
@@ -245,7 +315,7 @@ export default function AdminReports() {
                   <span className="text-sm text-green-600">+3%</span>
                 </div>
               </div>
-              
+
               <div className="flex justify-between items-center">
                 <span className="text-sm">Customer Satisfaction</span>
                 <div className="flex items-center space-x-1">
@@ -267,31 +337,41 @@ export default function AdminReports() {
                 <Users className="h-5 w-5 text-brand-primary" />
                 <div>
                   <div className="font-medium">1,156 Active Users</div>
-                  <div className="text-sm text-muted-foreground">92.7% engagement</div>
+                  <div className="text-sm text-muted-foreground">
+                    92.7% engagement
+                  </div>
                 </div>
               </div>
-              
+
               <div className="flex items-center space-x-3">
                 <Truck className="h-5 w-5 text-brand-secondary" />
                 <div>
                   <div className="font-medium">45 Active Drivers</div>
-                  <div className="text-sm text-muted-foreground">71% online rate</div>
+                  <div className="text-sm text-muted-foreground">
+                    71% online rate
+                  </div>
                 </div>
               </div>
-              
+
               <div className="flex items-center space-x-3">
                 <Package className="h-5 w-5 text-brand-accent" />
                 <div>
                   <div className="font-medium">3,247 Pickups</div>
-                  <div className="text-sm text-muted-foreground">This month</div>
+                  <div className="text-sm text-muted-foreground">
+                    This month
+                  </div>
                 </div>
               </div>
-              
+
               <div className="flex items-center space-x-3">
                 <DollarSign className="h-5 w-5 text-green-600" />
                 <div>
-                  <div className="font-medium">{APP_CONFIG.currency.format(2400000)} Revenue</div>
-                  <div className="text-sm text-muted-foreground">+18% growth</div>
+                  <div className="font-medium">
+                    {APP_CONFIG.currency.format(2400000)} Revenue
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    +18% growth
+                  </div>
                 </div>
               </div>
             </div>

@@ -1,9 +1,9 @@
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { 
-  Sidebar, 
-  SidebarContent, 
-  SidebarHeader, 
-  SidebarFooter, 
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarHeader,
+  SidebarFooter,
   SidebarProvider,
   SidebarInset,
   SidebarMenu,
@@ -11,17 +11,17 @@ import {
   SidebarMenuButton,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarSeparator
+  SidebarSeparator,
 } from '@/components/ui/sidebar';
 import { AdminDashboardHeader } from '@/components/layouts/AdminDashboardHeader';
-import { 
-  Home, 
-  Users, 
-  Truck, 
-  Package, 
-  BarChart3, 
+import {
+  Home,
+  Users,
+  Truck,
+  Package,
+  BarChart3,
   LogOut,
-  Recycle
+  Recycle,
 } from 'lucide-react';
 
 const navigationItems = [
@@ -76,7 +76,7 @@ function AdminSidebar() {
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              {navigationItems.map((item) => {
+              {navigationItems.map(item => {
                 const isActive = location.pathname === item.href;
                 return (
                   <SidebarMenuItem key={item.name}>
