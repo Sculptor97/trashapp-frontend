@@ -17,7 +17,12 @@ export const useAuthMutations = () => {
       ErrorHandler.showSuccessToast('Login successful!');
     },
     onError: error => {
+      console.error('Login error:', error);
       ErrorHandler.handleAndShowError(error, 'Login failed');
+    },
+    onSettled: () => {
+      // Always called, whether success or error
+      console.log('Login mutation settled');
     },
   });
 
@@ -94,7 +99,12 @@ export const useAuthMutations = () => {
       ErrorHandler.showSuccessToast('Google authentication successful!');
     },
     onError: error => {
+      console.error('Google OAuth error:', error);
       ErrorHandler.handleAndShowError(error, 'Google authentication failed');
+    },
+    onSettled: () => {
+      // Always called, whether success or error
+      console.log('Google OAuth mutation settled');
     },
   });
 

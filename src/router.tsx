@@ -3,6 +3,7 @@ import {
   createRoutesFromElements,
   Route,
 } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { PublicLayout } from './components/layouts/PublicLayout';
 import { AuthLayout } from './components/layouts/AuthLayout';
 import { CustomerDashboardLayout } from './layouts/CustomerDashboardLayout';
@@ -59,6 +60,9 @@ const router = createBrowserRouter(
         <Route path="requests" element={<AdminRequests />} />
         <Route path="reports" element={<AdminReports />} />
       </Route>
+
+      {/* Fallback route for 404 */}
+      <Route path="*" element={<Navigate to="/" replace />} />
     </>
   )
 );
