@@ -44,8 +44,8 @@ const pickupRequestSchema = z.object({
     .string()
     .max(500, 'Notes must be less than 500 characters')
     .optional(),
-  urgentPickup: z.boolean().default(false),
-  recurringPickup: z.boolean().default(false),
+  urgentPickup: z.boolean(),
+  recurringPickup: z.boolean(),
   recurringFrequency: z
     .enum(['weekly', 'biweekly', 'monthly'] as const)
     .optional(),

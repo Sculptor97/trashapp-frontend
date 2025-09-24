@@ -242,11 +242,10 @@ export class AuthService {
       const response = await ApiRequest<{ url: string }>({
         method: 'GET',
         url: endpoints.auth.google.init,
-
       });
-
+      console.log(response.data.url);
       // Redirect to the Google OAuth URL returned by backend
-      window.location.href = response.data.url;
+      //window.location.href = response.data.url;
     } catch (error) {
       console.error('Failed to initiate Google OAuth:', error);
       throw new Error(
