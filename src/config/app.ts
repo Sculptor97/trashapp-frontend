@@ -25,6 +25,14 @@ export const APP_CONFIG = {
     instagram: '#',
   },
 
+  // Currency Configuration
+  currency: {
+    code: 'XAF',
+    symbol: 'FCFA',
+    name: 'Central African CFA franc',
+    format: (amount: number) => `${amount.toLocaleString()} FCFA`,
+  },
+
   // App Statistics
   stats: {
     users: '10,000+',
