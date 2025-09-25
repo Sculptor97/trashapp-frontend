@@ -25,32 +25,32 @@ export function RequestFilters({
   onFiltersChange,
 }: RequestFiltersProps) {
   return (
-    <div className="flex flex-col md:flex-row gap-4">
-      <div className="flex-1">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input
-            placeholder="Search by address, notes, or driver..."
-            value={filters.searchQuery}
-            onChange={e =>
-              onFiltersChange({
-                ...filters,
-                searchQuery: e.target.value,
-              })
-            }
-            className="pl-10"
-          />
-        </div>
+    <div className="space-y-4">
+      {/* Search Input - Full Width */}
+      <div className="relative">
+        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+        <Input
+          placeholder="Search by address, notes, or driver..."
+          value={filters.searchQuery}
+          onChange={e =>
+            onFiltersChange({
+              ...filters,
+              searchQuery: e.target.value,
+            })
+          }
+          className="pl-10"
+        />
       </div>
 
-      <div className="flex gap-2">
+      {/* Filter Selects - Responsive Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
         <Select
           value={filters.status}
           onValueChange={value =>
             onFiltersChange({ ...filters, status: value as any })
           }
         >
-          <SelectTrigger className="w-[140px]">
+          <SelectTrigger className="w-full">
             <SelectValue placeholder="All Status" />
           </SelectTrigger>
           <SelectContent>
@@ -72,7 +72,7 @@ export function RequestFilters({
             onFiltersChange({ ...filters, wasteType: value as any })
           }
         >
-          <SelectTrigger className="w-[140px]">
+          <SelectTrigger className="w-full">
             <SelectValue placeholder="All Types" />
           </SelectTrigger>
           <SelectContent>
@@ -94,7 +94,7 @@ export function RequestFilters({
             onFiltersChange({ ...filters, dateRange: value as any })
           }
         >
-          <SelectTrigger className="w-[120px]">
+          <SelectTrigger className="w-full">
             <SelectValue placeholder="All Time" />
           </SelectTrigger>
           <SelectContent>
