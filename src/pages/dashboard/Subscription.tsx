@@ -72,7 +72,7 @@ export default function DashboardSubscription() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-brand-primary">
+        <h1 className="text-2xl sm:text-3xl font-bold text-brand-primary">
           Subscription & Billing
         </h1>
         <p className="text-muted-foreground mt-2">
@@ -83,9 +83,9 @@ export default function DashboardSubscription() {
       {/* Active Subscriptions */}
       <Card>
         <CardHeader>
-          <div className="flex justify-between items-center">
+          <div className="flex flex-col space-y-4 sm:flex-row sm:justify-between sm:items-center sm:space-y-0">
             <CardTitle>Active Subscriptions</CardTitle>
-            <Button className="bg-brand-primary hover:bg-brand-secondary">
+            <Button className="bg-brand-primary hover:bg-brand-secondary w-full sm:w-auto">
               <Plus className="h-4 w-4 mr-2" />
               Add Subscription
             </Button>
@@ -94,48 +94,104 @@ export default function DashboardSubscription() {
         <CardContent>
           <div className="space-y-4">
             {mockSubscriptions.map(subscription => (
-              <div
-                key={subscription.id}
-                className="flex items-center justify-between p-4 border rounded-lg"
-              >
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-brand-light rounded-full flex items-center justify-center">
-                    <CreditCard className="h-6 w-6 text-brand-primary" />
+              <div key={subscription.id} className="p-4 border rounded-lg">
+                {/* Mobile Layout */}
+                <div className="flex flex-col space-y-4 md:hidden">
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 bg-brand-light rounded-full flex items-center justify-center flex-shrink-0">
+                        <CreditCard className="h-5 w-5 text-brand-primary" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <h3 className="font-medium text-sm">
+                          {subscription.name}
+                        </h3>
+                        <div className="flex items-center space-x-2 mt-1">
+                          <Badge
+                            className={
+                              subscription.status === 'Active'
+                                ? 'bg-green-100 text-green-800 text-xs'
+                                : 'bg-yellow-100 text-yellow-800 text-xs'
+                            }
+                          >
+                            {subscription.status}
+                          </Badge>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <div className="flex items-center space-x-2">
-                      <h3 className="font-medium">{subscription.name}</h3>
-                      <Badge
-                        className={
-                          subscription.status === 'Active'
-                            ? 'bg-green-100 text-green-800'
-                            : 'bg-yellow-100 text-yellow-800'
-                        }
-                      >
-                        {subscription.status}
-                      </Badge>
+
+                  <div className="space-y-2">
+                    <div className="text-xs text-muted-foreground">
+                      <span className="font-medium">Type:</span>{' '}
+                      {subscription.type}
                     </div>
-                    <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                      <span>{subscription.type}</span>
-                      <span>•</span>
-                      <span>{subscription.frequency}</span>
-                      <span>•</span>
-                      <span>Next billing: {subscription.nextBilling}</span>
+                    <div className="text-xs text-muted-foreground">
+                      <span className="font-medium">Frequency:</span>{' '}
+                      {subscription.frequency}
                     </div>
+                    <div className="text-xs text-muted-foreground">
+                      <span className="font-medium">Next billing:</span>{' '}
+                      {subscription.nextBilling}
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between pt-2 border-t">
+                    <div className="text-left">
+                      <div className="font-medium text-lg">
+                        {subscription.price}
+                      </div>
+                      <div className="text-xs text-muted-foreground">
+                        per {subscription.frequency.toLowerCase()}
+                      </div>
+                    </div>
+                    <Button variant="outline" size="sm" className="h-8 px-2">
+                      <Settings className="h-3 w-3" />
+                    </Button>
                   </div>
                 </div>
-                <div className="flex items-center space-x-4">
-                  <div className="text-right">
-                    <div className="font-medium text-lg">
-                      {subscription.price}
+
+                {/* Desktop Layout */}
+                <div className="hidden md:flex items-center justify-between">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 bg-brand-light rounded-full flex items-center justify-center">
+                      <CreditCard className="h-6 w-6 text-brand-primary" />
                     </div>
-                    <div className="text-sm text-muted-foreground">
-                      per {subscription.frequency.toLowerCase()}
+                    <div>
+                      <div className="flex items-center space-x-2">
+                        <h3 className="font-medium">{subscription.name}</h3>
+                        <Badge
+                          className={
+                            subscription.status === 'Active'
+                              ? 'bg-green-100 text-green-800'
+                              : 'bg-yellow-100 text-yellow-800'
+                          }
+                        >
+                          {subscription.status}
+                        </Badge>
+                      </div>
+                      <div className="flex items-center space-x-4 text-sm text-muted-foreground">
+                        <span>{subscription.type}</span>
+                        <span>•</span>
+                        <span>{subscription.frequency}</span>
+                        <span>•</span>
+                        <span>Next billing: {subscription.nextBilling}</span>
+                      </div>
                     </div>
                   </div>
-                  <Button variant="outline" size="sm">
-                    <Settings className="h-4 w-4" />
-                  </Button>
+                  <div className="flex items-center space-x-4">
+                    <div className="text-right">
+                      <div className="font-medium text-lg">
+                        {subscription.price}
+                      </div>
+                      <div className="text-sm text-muted-foreground">
+                        per {subscription.frequency.toLowerCase()}
+                      </div>
+                    </div>
+                    <Button variant="outline" size="sm">
+                      <Settings className="h-4 w-4" />
+                    </Button>
+                  </div>
                 </div>
               </div>
             ))}
@@ -194,9 +250,9 @@ export default function DashboardSubscription() {
       {/* Billing History */}
       <Card>
         <CardHeader>
-          <div className="flex justify-between items-center">
+          <div className="flex flex-col space-y-4 sm:flex-row sm:justify-between sm:items-center sm:space-y-0">
             <CardTitle>Billing History</CardTitle>
-            <Button variant="outline">
+            <Button variant="outline" className="w-full sm:w-auto">
               <Download className="h-4 w-4 mr-2" />
               Download All
             </Button>
@@ -205,33 +261,75 @@ export default function DashboardSubscription() {
         <CardContent>
           <div className="space-y-4">
             {mockBillingHistory.map(invoice => (
-              <div
-                key={invoice.id}
-                className="flex items-center justify-between p-4 border rounded-lg"
-              >
-                <div className="flex items-center space-x-4">
-                  <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                    <CheckCircle className="h-5 w-5 text-green-600" />
+              <div key={invoice.id} className="p-4 border rounded-lg">
+                {/* Mobile Layout */}
+                <div className="flex flex-col space-y-4 md:hidden">
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <CheckCircle className="h-5 w-5 text-green-600" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <h3 className="font-medium text-sm">
+                          Invoice {invoice.id}
+                        </h3>
+                        <div className="flex items-center space-x-2 mt-1">
+                          <Badge className="bg-green-100 text-green-800 text-xs">
+                            {invoice.status}
+                          </Badge>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <div className="flex items-center space-x-2">
-                      <h3 className="font-medium">Invoice {invoice.id}</h3>
-                      <Badge className="bg-green-100 text-green-800">
-                        {invoice.status}
-                      </Badge>
+
+                  <div className="space-y-2">
+                    <div className="text-xs text-muted-foreground">
+                      <span className="font-medium">Date:</span> {invoice.date}
                     </div>
-                    <div className="text-sm text-muted-foreground">
-                      {invoice.date} • {invoice.subscriptions.join(', ')}
+                    <div className="text-xs text-muted-foreground">
+                      <span className="font-medium">Services:</span>{' '}
+                      {invoice.subscriptions.join(', ')}
                     </div>
+                  </div>
+
+                  <div className="flex items-center justify-between pt-2 border-t">
+                    <div className="text-left">
+                      <div className="font-medium text-lg">
+                        {invoice.amount}
+                      </div>
+                    </div>
+                    <Button variant="outline" size="sm" className="h-8 px-2">
+                      <Download className="h-3 w-3" />
+                    </Button>
                   </div>
                 </div>
-                <div className="flex items-center space-x-4">
-                  <div className="text-right">
-                    <div className="font-medium">{invoice.amount}</div>
+
+                {/* Desktop Layout */}
+                <div className="hidden md:flex items-center justify-between">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                      <CheckCircle className="h-5 w-5 text-green-600" />
+                    </div>
+                    <div>
+                      <div className="flex items-center space-x-2">
+                        <h3 className="font-medium">Invoice {invoice.id}</h3>
+                        <Badge className="bg-green-100 text-green-800">
+                          {invoice.status}
+                        </Badge>
+                      </div>
+                      <div className="text-sm text-muted-foreground">
+                        {invoice.date} • {invoice.subscriptions.join(', ')}
+                      </div>
+                    </div>
                   </div>
-                  <Button variant="outline" size="sm">
-                    <Download className="h-4 w-4" />
-                  </Button>
+                  <div className="flex items-center space-x-4">
+                    <div className="text-right">
+                      <div className="font-medium">{invoice.amount}</div>
+                    </div>
+                    <Button variant="outline" size="sm">
+                      <Download className="h-4 w-4" />
+                    </Button>
+                  </div>
                 </div>
               </div>
             ))}

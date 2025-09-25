@@ -17,19 +17,22 @@ export function HeroSection() {
               >
                 🇨🇲 Made for Cameroon
               </Badge>
-              <h1 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-gray-900 leading-tight">
                 {APP_CONFIG.tagline}
               </h1>
-              <p className="text-xl text-gray-600 leading-relaxed">
+              <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
                 {APP_CONFIG.description}
               </p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link to={APP_CONFIG.cta.primary.href}>
+              <Link
+                to={APP_CONFIG.cta.primary.href}
+                className="w-full sm:w-auto"
+              >
                 <Button
                   size="lg"
-                  className="bg-brand-primary hover:bg-brand-secondary text-white text-lg px-8 py-6"
+                  className="bg-brand-primary hover:bg-brand-secondary text-white text-lg px-8 py-6 w-full sm:w-auto"
                 >
                   {APP_CONFIG.cta.primary.text}
                   <ArrowRight className="ml-2 h-5 w-5" />
@@ -38,23 +41,23 @@ export function HeroSection() {
               <Button
                 variant="outline"
                 size="lg"
-                className="text-lg px-8 py-6 border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-white"
+                className="text-lg px-8 py-6 border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-white w-full sm:w-auto"
               >
                 {APP_CONFIG.cta.secondary.text}
               </Button>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-8 text-sm text-gray-600">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-3 sm:space-y-0 sm:space-x-6 lg:space-x-8 text-sm text-gray-600">
               <div className="flex items-center space-x-2">
-                <Users className="h-4 w-4 text-brand-primary" />
+                <Users className="h-4 w-4 text-brand-primary flex-shrink-0" />
                 <span>{APP_CONFIG.stats.users} Users</span>
               </div>
               <div className="flex items-center space-x-2">
-                <MapPin className="h-4 w-4 text-brand-primary" />
+                <MapPin className="h-4 w-4 text-brand-primary flex-shrink-0" />
                 <span>{APP_CONFIG.stats.cities} Cities</span>
               </div>
               <div className="flex items-center space-x-2">
-                <Star className="h-4 w-4 text-brand-primary" />
+                <Star className="h-4 w-4 text-brand-primary flex-shrink-0" />
                 <span>{APP_CONFIG.stats.rating} Rating</span>
               </div>
             </div>
@@ -65,15 +68,15 @@ export function HeroSection() {
               <img
                 src={APP_CONFIG.images.hero}
                 alt="Waste management in Cameroon"
-                className="rounded-2xl shadow-2xl"
+                className="rounded-2xl shadow-2xl w-full h-auto"
               />
             </div>
-            <div className="absolute -top-4 -right-4 bg-brand-primary text-white p-4 rounded-xl shadow-lg">
+            <div className="absolute -top-2 -right-2 sm:-top-4 sm:-right-4 bg-brand-primary text-white p-3 sm:p-4 rounded-xl shadow-lg">
               <div className="text-center">
-                <div className="text-2xl font-bold">
+                <div className="text-xl sm:text-2xl font-bold">
                   {APP_CONFIG.stats.satisfaction}
                 </div>
-                <div className="text-sm">Satisfaction Rate</div>
+                <div className="text-xs sm:text-sm">Satisfaction Rate</div>
               </div>
             </div>
           </div>

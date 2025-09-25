@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import { PhotoGallery } from '@/components/PhotoGallery';
 import { cn } from '@/lib/utils';
 import {
   Package,
@@ -311,6 +312,18 @@ export function PickupDetailModal({
               )}
             </div>
           </div>
+
+          {/* Photos Section */}
+          {pickup.photos && pickup.photos.length > 0 && (
+            <>
+              <Separator />
+              <PhotoGallery
+                photos={pickup.photos}
+                title="Pickup Photos"
+                className="w-full"
+              />
+            </>
+          )}
 
           {/* Action Buttons */}
           <Separator />

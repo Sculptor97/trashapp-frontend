@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
+import { CustomDatePicker } from '@/components/ui/date-picker';
 import { AddressInput } from './AddressInput';
 import { APP_CONFIG } from '@/config/app';
 import { cn } from '@/lib/utils';
@@ -27,29 +28,43 @@ import {
   Sunrise,
   Sunset,
 } from 'lucide-react';
-import type { WasteType } from '@/types/pickup';
+import type { WasteType, Pickup } from '@/types/pickup';
 
 // Form validation schema
-const pickupRequestSchema = z.object({
-  address: z.string().min(10, 'Address must be at least 10 characters'),
-  coordinates: z.tuple([z.number(), z.number()]).optional(),
-  wasteType: z.enum(['general', 'recyclable', 'hazardous'] as const),
-  pickupDate: z.string().min(1, 'Please select a pickup date'),
-  pickupTime: z.enum(['morning', 'afternoon', 'evening'] as const),
-  estimatedWeight: z
-    .number()
-    .min(1, 'Please estimate the weight')
-    .max(1000, 'Maximum 1000kg per pickup'),
-  notes: z
-    .string()
-    .max(500, 'Notes must be less than 500 characters')
-    .optional(),
-  urgentPickup: z.boolean(),
-  recurringPickup: z.boolean(),
-  recurringFrequency: z
-    .enum(['weekly', 'biweekly', 'monthly'] as const)
-    .optional(),
-});
+const pickupRequestSchema = z
+  .object({
+    address: z.string().min(10, 'Address must be at least 10 characters'),
+    coordinates: z.tuple([z.number(), z.number()]).optional(),
+    wasteType: z.enum(['general', 'recyclable', 'hazardous'] as const),
+    pickupDate: z.string().min(1, 'Please select a pickup date'),
+    pickupTime: z.enum(['morning', 'afternoon', 'evening'] as const),
+    estimatedWeight: z
+      .number()
+      .min(1, 'Please estimate the weight')
+      .max(1000, 'Maximum 1000kg per pickup'),
+    notes: z
+      .string()
+      .max(500, 'Notes must be less than 500 characters')
+      .optional(),
+    urgentPickup: z.boolean(),
+    recurringPickup: z.boolean(),
+    recurringFrequency: z
+      .enum(['weekly', 'biweekly', 'monthly'] as const)
+      .optional(),
+  })
+  .refine(
+    data => {
+      // If recurring pickup is enabled, frequency is required
+      if (data.recurringPickup && !data.recurringFrequency) {
+        return false;
+      }
+      return true;
+    },
+    {
+      message: 'Please select a frequency for recurring pickup',
+      path: ['recurringFrequency'],
+    }
+  );
 
 type PickupRequestFormData = z.infer<typeof pickupRequestSchema>;
 
@@ -57,6 +72,7 @@ interface PickupRequestFormProps {
   onSubmit: (data: PickupRequestFormData & { photos?: File[] }) => void;
   isLoading?: boolean;
   className?: string;
+  initialData?: Pickup;
 }
 
 const wasteTypes: Array<{
@@ -121,6 +137,7 @@ export function PickupRequestForm({
   onSubmit,
   isLoading = false,
   className,
+  initialData,
 }: PickupRequestFormProps) {
   const [photos, setPhotos] = useState<File[]>([]);
   const [addressValid, setAddressValid] = useState(false);
@@ -135,8 +152,18 @@ export function PickupRequestForm({
   } = useForm<PickupRequestFormData>({
     resolver: zodResolver(pickupRequestSchema),
     defaultValues: {
-      urgentPickup: false,
-      recurringPickup: false,
+      address: initialData?.address || '',
+      coordinates: initialData?.coordinates,
+      wasteType: initialData?.waste_type || 'general',
+      pickupDate: initialData?.pickup_date
+        ? new Date(initialData.pickup_date).toISOString().split('T')[0]
+        : '',
+      pickupTime: initialData?.pickup_time || 'morning',
+      estimatedWeight: initialData?.estimated_weight || 1,
+      notes: initialData?.notes || '',
+      urgentPickup: initialData?.urgent_pickup || false,
+      recurringPickup: initialData?.recurring_pickup || false,
+      recurringFrequency: initialData?.recurring_frequency,
     },
   });
 
@@ -264,12 +291,24 @@ export function PickupRequestForm({
                 <div className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="pickupDate">Pickup Date</Label>
-                    <Input
-                      id="pickupDate"
-                      type="date"
-                      min={getMinDate()}
-                      max={getMaxDate()}
-                      {...register('pickupDate')}
+                    <CustomDatePicker
+                      selected={
+                        watch('pickupDate')
+                          ? new Date(watch('pickupDate'))
+                          : undefined
+                      }
+                      onChange={date => {
+                        if (date) {
+                          setValue(
+                            'pickupDate',
+                            date.toISOString().split('T')[0]
+                          );
+                        }
+                      }}
+                      minDate={getMinDate()}
+                      maxDate={getMaxDate()}
+                      placeholder="Select pickup date"
+                      error={!!errors.pickupDate}
                     />
                     {errors.pickupDate && (
                       <p className="text-sm text-red-600">
@@ -431,7 +470,10 @@ export function PickupRequestForm({
                   <div className="flex items-center gap-3 p-3 rounded-md border">
                     <Checkbox
                       id="urgent-pickup"
-                      {...register('urgentPickup')}
+                      checked={watchedValues.urgentPickup}
+                      onCheckedChange={checked =>
+                        setValue('urgentPickup', !!checked)
+                      }
                     />
                     <Label
                       htmlFor="urgent-pickup"
@@ -450,7 +492,16 @@ export function PickupRequestForm({
                   <div className="flex items-center gap-3 p-3 rounded-md border">
                     <Checkbox
                       id="recurring-pickup"
-                      {...register('recurringPickup')}
+                      checked={watchedValues.recurringPickup}
+                      onCheckedChange={checked => {
+                        setValue('recurringPickup', !!checked);
+                        if (!checked) {
+                          setValue('recurringFrequency', undefined);
+                        } else if (!watchedValues.recurringFrequency) {
+                          // Set default frequency when enabling recurring pickup
+                          setValue('recurringFrequency', 'weekly');
+                        }
+                      }}
                     />
                     <Label
                       htmlFor="recurring-pickup"
@@ -497,6 +548,12 @@ export function PickupRequestForm({
                         </label>
                       ))}
                     </div>
+                    {errors.recurringFrequency && (
+                      <p className="text-sm text-red-600 flex items-center gap-1">
+                        <AlertTriangle className="h-4 w-4" />
+                        {errors.recurringFrequency.message}
+                      </p>
+                    )}
                   </div>
                 )}
               </div>

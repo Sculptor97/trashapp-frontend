@@ -145,8 +145,8 @@ export class PickupService {
   ): Promise<string[]> {
     try {
       const formData = new FormData();
-      photos.forEach((photo, index) => {
-        formData.append(`photo_${index}`, photo);
+      photos.forEach(photo => {
+        formData.append('photos', photo);
       });
 
       const response = await ApiRequest<{ photo_urls: string[] }>({

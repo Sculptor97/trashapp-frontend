@@ -1,6 +1,7 @@
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
-import { Bell, Search } from 'lucide-react';
+import { Search } from 'lucide-react';
+import { NotificationDropdown } from '@/components/NotificationDropdown';
 import { useAuthQueries } from '@/hooks/useAuthQueries';
 
 export function CustomerDashboardHeader() {
@@ -26,9 +27,7 @@ export function CustomerDashboardHeader() {
           <Button variant="ghost" size="icon">
             <Search className="h-4 w-4" />
           </Button>
-          <Button variant="ghost" size="icon">
-            <Bell className="h-4 w-4" />
-          </Button>
+          <NotificationDropdown />
           <div className="h-8 w-8 rounded-full bg-brand-primary flex items-center justify-center">
             <span className="text-sm font-medium text-white">
               {profile.data ? getUserInitials(profile.data.name) : 'U'}
